@@ -1,24 +1,31 @@
-# README
+# miditone-server
+Ranking server for miditone#, Koreisai2019 5J Project.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Using
+- Docker
+- in Docker container
+  - Ruby 2.6.4
+  - Rails 6.0.0
+  - MySQL 8.0
 
-Things you may want to cover:
+### How to Build
+how to build in case of using docker.  
 
-* Ruby version
+type commands in your terminal
+```sh
+git clone https://github.com/Yamamoto0773/miditone-server.git
+cd miditone-server
+source env.sh
+build
+rails db:create
+```
 
-* System dependencies
+### Launch
+move to app directory, and then type
+```sh
+up
+```
+Lanch complete when displayed 'Use Ctrl-C to stop' in your terminal
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Terminate
+type `ctrl-c` in your terminal where running application
