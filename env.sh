@@ -1,5 +1,7 @@
-alias build="docker-compose build"
+alias build="docker-compose build --no-cache"
 alias up="rm -f tmp/pids/server.pid && docker-compose up"
 alias rails="docker-compose run --rm app bundle exec rails"
 alias bundle="docker-compose run --rm app bundle"
 alias rake="docker-compose run --rm app bundle exec rake"
+alias rubocop="docker-compose run --rm app bundle exec rubocop"
+alias rspec="docker-compose run --rm app bundle exec rspec"

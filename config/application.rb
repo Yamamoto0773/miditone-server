@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails/all'
@@ -15,5 +17,14 @@ module MiditoneServer
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    config.generators do |g|
+      g.test_framework = 'rspec'
+      g.helper_specs = false
+      g.view_specs = false
+      g.model_specs = false
+      g.integration_spec = false
+      g.factory_bot = false
+    end
   end
 end

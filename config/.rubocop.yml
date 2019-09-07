@@ -1,0 +1,98 @@
+require: rubocop-rails
+
+AllCops:
+  Exclude:
+    - db/schema.rb
+    - vendor/*
+    - public/*
+    - tmp/*
+    - log/*
+    - bin/*
+
+Style/Documentation:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/BlockDelimiters:
+  Enabled: false
+Style/BlockComments:
+  Enabled: false
+Style/AsciiComments:
+  Enabled: false
+Style/TrailingCommaInArguments:
+  Enabled: false
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+Style/SignalException:
+  Enabled: false
+Style/RedundantSelf:
+  Enabled: false
+Style/NonNilCheck:
+  Enabled: false
+Style/IfInsideElse:
+  Enabled: false
+Style/MultilineBlockChain:
+  Enabled: false
+Style/GuardClause:
+  Enabled: false
+
+Naming/PredicateName:
+  Exclude:
+    - app/serializers/**/*.rb
+Naming/AccessorMethodName:
+  Enabled: false
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
+Naming/FileName:
+  Exclude:
+    - config/initializers/rswag-ui.rb
+    - config/initializers/rswag-api.rb
+
+Layout/EmptyLines:
+  Enabled: false
+Layout/AlignParameters:
+  Enabled: false
+Layout/IndentArray:
+  EnforcedStyle: consistent
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+Layout/ExtraSpacing:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 140
+  Exclude:
+    - db/seeds.rb
+    - config/initializers/devise.rb
+Metrics/MethodLength:
+  Max: 50
+  Exclude:
+    - spec/support/request_helpers.rb
+    - app/controllers/api/private/receipts_controller.rb
+Metrics/BlockLength:
+  Max: 30
+  Exclude:
+    - config/environments/*.rb
+    - config/routes.rb
+    - config/routes/*
+    - spec/**/*
+    - lib/tasks/ridgepole.rake
+Metrics/AbcSize:
+  Max: 55
+  Exclude:
+    - spec/support/request_helpers.rb
+    - app/controllers/api/private/receipts_controller.rb
+Metrics/CyclomaticComplexity:
+  Max: 8
+Metrics/PerceivedComplexity:
+  Max: 10
+Metrics/ParameterLists:
+  CountKeywordArgs: false
+Metrics/ClassLength:
+  Max: 200
+Metrics/ModuleLength:
+  Max: 150
