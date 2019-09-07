@@ -21,7 +21,7 @@ module Api
         @user.save!
       rescue ActiveRecord::RecordNotUnique
         retry
-      rescue 
+      rescue StandardError
         render_errors @user
       end
 

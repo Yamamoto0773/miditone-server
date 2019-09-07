@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RequestHelper
   def json
     # シンボルキーと文字列キーを同じとして扱う

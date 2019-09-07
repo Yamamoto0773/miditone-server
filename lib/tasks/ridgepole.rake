@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :ridgepole do
   task apply: :environment do
     run_ridgepole('--apply')

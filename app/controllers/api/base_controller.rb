@@ -2,12 +2,11 @@
 
 module Api
   class BaseController < ::ApplicationController
-
     def render_errors(obj)
       render400 obj.errors.messages
     end
 
-    def render400(details)
+    def render400(_details)
       render json: {
         title: 'Bad Request',
         status: 400,
