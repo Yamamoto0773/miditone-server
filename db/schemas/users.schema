@@ -1,0 +1,6 @@
+create_table "users", force: :cascade, options: "COLLATE=utf8_bin" do |t|
+  t.string "qrcode", null: false
+  t.string "name", null: false
+end
+
+add_index :users, :qrcode, unique: true
