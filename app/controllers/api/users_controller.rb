@@ -22,7 +22,7 @@ module Api
       rescue ActiveRecord::RecordNotUnique
         retry
       rescue StandardError
-        render_errors @user
+        return render_validation_errors @user
       end
 
       render json: ::Api::UserSerializer.new(@user), status: :created
