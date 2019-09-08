@@ -17,10 +17,21 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "artist", null: false
   end
 
+  create_table "scores", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "music_id", null: false
+    t.string "difficulty", null: false
+    t.integer "points", null: false
+    t.index ["music_id"], name: "fk_rails_0c7550e6a4"
+    t.index ["user_id", "music_id", "difficulty"], name: "index_scores_on_user_id_and_music_id_and_difficulty", unique: true
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin", force: :cascade do |t|
     t.string "qrcode", null: false
     t.string "name", null: false
     t.index ["qrcode"], name: "index_users_on_qrcode", unique: true
   end
 
+  add_foreign_key "scores", "musics"
+  add_foreign_key "scores", "users"
 end

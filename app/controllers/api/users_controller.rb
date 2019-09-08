@@ -32,7 +32,7 @@ module Api
       if @user.update(user_params)
         render json: ::Api::UserSerializer.new(@user)
       else
-        render_errors @user
+        render_validation_errors @user
       end
     end
 
@@ -40,7 +40,7 @@ module Api
       if @user.destroy
         head :no_content
       else
-        render_errors @user
+        render_validation_errors @user
       end
     end
 
