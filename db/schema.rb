@@ -12,6 +12,11 @@
 
 ActiveRecord::Schema.define(version: 0) do
 
+  create_table "musics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "artist", null: false
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin", force: :cascade do |t|
     t.string "qrcode", null: false
     t.string "name", null: false
