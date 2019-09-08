@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  has_many :scores, dependent: :destroy
+
   validates :qrcode,
             presence: true,
             uniqueness: true,
