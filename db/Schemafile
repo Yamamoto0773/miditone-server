@@ -1,1 +1,2 @@
 require 'schemas/users.schema'
+require 'schemas/musics.schema'
