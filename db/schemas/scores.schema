@@ -1,0 +1,10 @@
+create_table :scores, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
+  t.bigint    :user_id,     null: false
+  t.bigint    :music_id,    null: false
+  t.string    :difficulty,  null: false
+  t.integer   :points,      null: false
+end
+
+add_index :scores, [:user_id, :music_id, :difficulty], unique: true
+add_foreign_key :scores, :users
+add_foreign_key :scores, :musics
