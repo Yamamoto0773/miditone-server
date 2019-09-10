@@ -4,5 +4,5 @@ class Music < ApplicationRecord
   has_many :scores, dependent: :destroy
 
   validates :title, :artist,
-            presence: true
+    presence: true
 end

@@ -7,12 +7,12 @@ class Score < ApplicationRecord
   belongs_to :music
 
   validates :user_id, :music_id, :difficulty, :points,
-            presence: true
+    presence: true
   validates :user_id,
-            uniqueness: { scope: %i[music_id difficulty] }
+    uniqueness: { scope: %i[music_id difficulty] }
   validates :points,
-            numericality: { grather_than_or_equal_to: 0, less_than_or_equal_to: 1_000_000 }
+    numericality: { grather_than_or_equal_to: 0, less_than_or_equal_to: 1_000_000 }
 
   enumerize :difficulty,
-            in: { easy: '0', normal: '1', hard: '2' }
+    in: { easy: '0', normal: '1', hard: '2' }
 end
