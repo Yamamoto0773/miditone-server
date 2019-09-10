@@ -6,12 +6,13 @@ module ExceptionRescuable
   included do
     include ErrorRenderable
 
-    rescue_from ActiveRecord::RecordNotFound, with: record_not_found
+    rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   end
 
   def record_not_found
     render404(
-      titie: 'Not found'
+      title: 'Not Found',
+      messages: 'Record not found'
     )
   end
 end
