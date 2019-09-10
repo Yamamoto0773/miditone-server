@@ -8,18 +8,18 @@ module Api
 
     def index
       @music = Music.all
-      render json: ::Api::MusicSerializer.new(@music)
+      render json: MusicSerializer.new(@music)
     end
 
     def show
-      render json: ::Api::MusicSerializer.new(@music)
+      render json: MusicSerializer.new(@music)
     end
 
     def create
       @music = Music.new(music_params)
 
       if @music.save
-        render json: ::Api::MusicSerializer.new(@music), status: :created
+        render json: MusicSerializer.new(@music), status: :created
       else
         render_validation_errors @music
       end
@@ -27,7 +27,7 @@ module Api
 
     def update
       if @music.update(music_params)
-        render json: ::Api::MusicSerializer.new(@music)
+        render json: MusicSerializer.new(@music)
       else
         render_validation_errors @music
       end

@@ -8,11 +8,11 @@ module Api
 
     def index
       @users = User.all
-      render json: ::Api::UserSerializer.new(@users)
+      render json: UserSerializer.new(@users)
     end
 
     def show
-      render json: ::Api::UserSerializer.new(@user)
+      render json: UserSerializer.new(@user)
     end
 
     def create
@@ -25,12 +25,12 @@ module Api
         return render_validation_errors @user
       end
 
-      render json: ::Api::UserSerializer.new(@user), status: :created
+      render json: UserSerializer.new(@user), status: :created
     end
 
     def update
       if @user.update(user_params)
-        render json: ::Api::UserSerializer.new(@user)
+        render json: UserSerializer.new(@user)
       else
         render_validation_errors @user
       end

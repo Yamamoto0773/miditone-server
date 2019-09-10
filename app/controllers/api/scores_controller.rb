@@ -9,23 +9,23 @@ module Api
 
     def index
       @scores = if given_difficulty_params?
-                  @user.scores.where(difficulty: params[:difficulty]).order(:music_id, :difficulty)
+                  @user.scores.where(difficulty: params[:difficulty]).order(:music_id)
                 else
                   @user.scores.order(:music_id, :difficulty)
                 end
 
-      render json: ::Api::ScoreSerializer.new(@scores, include: include_list)
+      render json: ScoreSerializer.new(@scores, include: include_list)
     end
 
     def show
-      render json: ::Api::ScoreSerializer.new(@score, include: include_list)
+      render json: ScoreSerializer.new(@score, include: include_list)
     end
 
     def create
       @score = @user.scores.build(score_params)
 
       if @score.save
-        render json: ::Api::ScoreSerializer.new(@score, include: include_list), status: :created
+        render json: ScoreSerializer.new(@score, include: include_list), status: :created
       else
         render_validation_errors @score
       end
@@ -33,7 +33,7 @@ module Api
 
     def update
       if @score.update(score_params)
-        render json: ::Api::ScoreSerializer.new(@score, include: include_list)
+        render json: ScoreSerializer.new(@score, include: include_list)
       else
         render_validation_errors @score
       end
