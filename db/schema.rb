@@ -22,8 +22,9 @@ ActiveRecord::Schema.define(version: 0) do
     t.bigint "music_id", null: false
     t.string "difficulty", null: false
     t.integer "points", null: false
-    t.index ["music_id"], name: "fk_rails_0c7550e6a4"
+    t.index ["music_id"], name: "index_scores_on_music_id"
     t.index ["user_id", "music_id", "difficulty"], name: "index_scores_on_user_id_and_music_id_and_difficulty", unique: true
+    t.index ["user_id"], name: "index_scores_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin", force: :cascade do |t|

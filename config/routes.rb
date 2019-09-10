@@ -6,7 +6,9 @@ Rails.application.routes.draw do
     resources :users do
       resources :scores, shallow: true
     end
-    resources :musics
+    resources :musics do
+      resources :ranking, only: [:index]
+    end
   end
 
   namespace :manage do

@@ -4,6 +4,8 @@ module ExceptionRescuable
   extend ActiveSupport::Concern
 
   included do
+    include ErrorRenderable
+
     rescue_from ActiveRecord::RecordNotFound, with: record_not_found
   end
 
