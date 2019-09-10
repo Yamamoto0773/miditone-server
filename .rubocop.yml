@@ -38,6 +38,8 @@ Style/MultilineBlockChain:
   Enabled: false
 Style/GuardClause:
   Enabled: false
+Layout/AlignArguments:
+  Enabled: false
 
 Naming/PredicateName:
   Exclude:
