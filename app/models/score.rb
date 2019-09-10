@@ -14,5 +14,5 @@ class Score < ApplicationRecord
             numericality: { grather_than_or_equal_to: 0, less_than_or_equal_to: 1_000_000 }
 
   enumerize :difficulty,
-            in: %i[easy normal hard]
+            in: { easy: '0', normal: '1', hard: '2' }
 end
