@@ -13,6 +13,8 @@ module Api
                   @music.scores.order([points: :desc], :difficulty)
                 end
 
+      @scores = @scores.includes(:music, :user)
+
       render json: ScoreSerializer.new(@scores, include: include_list)
     end
 
@@ -27,7 +29,7 @@ module Api
     end
 
     def include_list
-      %i[music]
+      %i[music user]
     end
   end
 end
