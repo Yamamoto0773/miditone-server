@@ -1,3 +1,4 @@
 require 'schemas/users.schema'
 require 'schemas/scores.schema'
 require 'schemas/musics.schema'
+require 'schemas/preferences.schema'

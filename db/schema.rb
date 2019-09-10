@@ -17,6 +17,13 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "artist", null: false
   end
 
+  create_table "preferences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.float "note_speed", null: false
+    t.integer "se_volume", null: false
+    t.index ["user_id"], name: "index_preferences_on_user_id", unique: true
+  end
+
   create_table "scores", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "music_id", null: false
@@ -33,6 +40,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["qrcode"], name: "index_users_on_qrcode", unique: true
   end
 
+  add_foreign_key "preferences", "users"
   add_foreign_key "scores", "musics"
   add_foreign_key "scores", "users"
 end

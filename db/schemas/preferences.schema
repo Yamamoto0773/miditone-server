@@ -1,0 +1,7 @@
+create_table :preferences, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
+  t.references  :user,        null: false, index: { unique: true }
+  t.float       :note_speed,  null: false
+  t.integer     :se_volume,   null: false
+end
+
+add_foreign_key :preferences, :users

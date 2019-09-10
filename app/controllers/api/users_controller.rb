@@ -12,7 +12,7 @@ module Api
     end
 
     def show
-      render json: UserSerializer.new(@user)
+      render json: UserSerializer.new(@user, include: include_list)
     end
 
     def create
@@ -52,6 +52,10 @@ module Api
 
     def user_params
       params.require(:user).permit(:name)
+    end
+
+    def include_list
+      %i[preference]
     end
   end
 end

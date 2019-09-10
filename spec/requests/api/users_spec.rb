@@ -15,10 +15,12 @@ RSpec.describe 'Users', type: :request do
 
   describe 'GET /api/users/:id' do
     let(:id) { user1.id }
+    let!(:preference) { create(:preference, user_id: user1.id) }
 
     it 'return a user' do
       is_expected.to eq 200
       expect(json['data']['id']).to eq user1.id.to_s
+      expect(json['included'][0]['id']).to eq preference.id.to_s
     end
   end
 
