@@ -17,7 +17,7 @@ git clone https://github.com/Yamamoto0773/miditone-server.git
 cd miditone-server
 source env.sh
 build
-rails db:create
+rake db:create ridgepole:apply
 ```
 
 ## Launch
