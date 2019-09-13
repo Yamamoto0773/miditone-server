@@ -44,7 +44,10 @@ gem 'fast_jsonapi', '~> 1.5'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 gem 'diff-lcs', '~> 1.3'
+# QR code
 gem 'rqrcode'
+# Use Pry as rails console
+gem 'pry-rails', '~> 0.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
