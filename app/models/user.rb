@@ -7,9 +7,11 @@ class User < ApplicationRecord
   validates :qrcode,
     presence: true,
     uniqueness: true,
-    format: /\A\d*\z/, # numbers only
+    format: { with: /\A\d*\z/ }, # numbers only
     length: { is: 12 }
   validates :name,
     presence: true,
+    # only typeable characters by keyboard, except space and \n
+    format: { with: %r{\A[\w`~!@#$%^&\*\(\)-=\+\[\]\{\}\\|;:'",<\.>\/\?]+\z} },
     length: { maximum: 10 }
 end
