@@ -63,7 +63,7 @@ $ mysql -u root -p # enter mysql terminal, require root password
 > GRANT ALL ON *.* TO 'username'@'localhost'; # grant permission to created user
 > exit
 ```
-5. Move to Application directory, and update `config/database.yml`.  9. 
+5. Move to Application directory, and update `config/database.yml`.  
 change username, password and host in default section.
 ```yml
 (truncated)
