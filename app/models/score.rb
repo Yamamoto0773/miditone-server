@@ -11,7 +11,7 @@ class Score < ApplicationRecord
   validates :user_id,
     uniqueness: { scope: %i[music_id difficulty] }
   validates :points,
-    numericality: { grather_than_or_equal_to: 0, less_than_or_equal_to: 1_000_000 }
+    numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 1_000_000 }
 
   enumerize :difficulty,
     in: { easy: '0', normal: '1', hard: '2' }
