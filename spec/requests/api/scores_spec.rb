@@ -10,8 +10,8 @@ RSpec.describe 'Scores', type: :request do
   let!(:score2) { create(:score, user_id: user.id, music_id: music1.id, difficulty: :easy) }
   let!(:score3) { create(:score, user_id: user.id, music_id: music1.id, difficulty: :normal) }
 
-  describe 'GET /api/users/:user_id/scores' do
-    let(:user_id) { user.id }
+  describe 'GET /api/users/:user_qrcode/scores' do
+    let(:user_qrcode) { user.qrcode }
 
     context 'pass parameter \'difficulty\'' do
       let(:params) do
@@ -47,8 +47,8 @@ RSpec.describe 'Scores', type: :request do
     end
   end
 
-  describe 'POST /api/users/:user_id/scores' do
-    let(:user_id) { user.id }
+  describe 'POST /api/users/:user_qrcode/scores' do
+    let(:user_qrcode) { user.qrcode }
     let(:params) do
       {
         score: {

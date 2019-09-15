@@ -47,7 +47,7 @@ module Api
     private
 
     def set_user
-      @user = User.find(params[:id])
+      @user = User.find_by!(qrcode: params[:qrcode])
     end
 
     def user_params
