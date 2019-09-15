@@ -44,7 +44,7 @@ module Api
     def played_times_of_all_musics
       played_times = {}
       Music.find_each do |music|
-        played_times.store( 
+        played_times.store(
           music.id,
           music.scores.pluck(:played_times).sum
         )
