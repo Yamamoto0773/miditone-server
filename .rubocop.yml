@@ -40,6 +40,8 @@ Style/GuardClause:
   Enabled: false
 Layout/AlignArguments:
   Enabled: false
+Style/SymbolArray:
+  Enabled: false
 
 Naming/PredicateName:
   Exclude:
