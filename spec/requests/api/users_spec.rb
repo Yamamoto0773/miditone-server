@@ -13,8 +13,8 @@ RSpec.describe 'Users', type: :request do
     end
   end
 
-  describe 'GET /api/users/:id' do
-    let(:id) { user1.id }
+  describe 'GET /api/users/:qrcode' do
+    let(:qrcode) { user1.qrcode }
     let!(:preference) { create(:preference, user_id: user1.id) }
 
     it 'return a user' do
@@ -38,8 +38,8 @@ RSpec.describe 'Users', type: :request do
     end
   end
 
-  describe 'PUT /api/users/:id' do
-    let(:id) { user1.id }
+  describe 'PUT /api/users/:qrcode' do
+    let(:qrcode) { user1.qrcode }
     let(:params) do
       {
         user: {
@@ -54,8 +54,8 @@ RSpec.describe 'Users', type: :request do
     end
   end
 
-  describe 'DELETE /api/users/:id' do
-    let(:id) { user1.id }
+  describe 'DELETE /api/users/:qrcode' do
+    let(:qrcode) { user1.qrcode }
 
     it 'delete a user' do
       is_expected.to eq 204
