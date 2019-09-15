@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     end
     resources :musics do
       resources :ranking, only: [:index]
+      get :played_times, to: 'musics#played_times_of_a_music', on: :member
+      get :played_times, to: 'musics#played_times_of_all_musics', on: :collection
     end
   end
 
