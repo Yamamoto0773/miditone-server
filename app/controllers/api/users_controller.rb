@@ -25,6 +25,8 @@ module Api
         return render_validation_errors @user
       end
 
+      @user.create_preference!
+
       render json: UserSerializer.new(@user), status: :created
     end
 

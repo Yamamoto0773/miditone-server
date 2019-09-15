@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :users, param: :qrcode do
       resources :scores, shallow: true
+      resource :preference, only: [:update, :show]
     end
     resources :musics do
       resources :ranking, only: [:index]
