@@ -32,9 +32,7 @@ module Api
     end
 
     def update
-      score_params.delete(:points) if params[:score]&.key?(:points) && params[:score][:points].to_i <= @score.points
-
-      @score.attributes = score_params
+      @score.points = params[:score][:points] if params[:score]&.key?(:points) && params[:score][:points].to_i > @score.points
       @score.played_times += 1
 
       if @score.save
