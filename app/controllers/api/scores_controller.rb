@@ -22,7 +22,7 @@ module Api
     end
 
     def create
-      @score = @user.scores.build(score_params)
+      @score = @user.scores.build(score_params.merge(played_times: 1))
 
       if @score.save
         render json: ScoreSerializer.new(@score, include: include_list), status: :created
@@ -32,7 +32,12 @@ module Api
     end
 
     def update
-      if @score.update(score_params)
+      score_params.delete(:points) if params[:score]&.key?(:points) && params[:score][:points].to_i <= @score.points
+
+      @score.attributes = score_params
+      @score.played_times += 1
+
+      if @score.save
         render json: ScoreSerializer.new(@score, include: include_list)
       else
         render_validation_errors @score

@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.bigint "music_id", null: false
     t.string "difficulty", null: false
     t.integer "points", null: false
+    t.integer "played_times", default: 0, null: false
     t.index ["music_id"], name: "index_scores_on_music_id"
     t.index ["user_id", "music_id", "difficulty"], name: "index_scores_on_user_id_and_music_id_and_difficulty", unique: true
     t.index ["user_id"], name: "index_scores_on_user_id"
