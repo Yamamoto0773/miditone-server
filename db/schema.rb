@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 0) do
 
   create_table "preferences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.float "note_speed", null: false
-    t.integer "se_volume", null: false
+    t.float "note_speed"
+    t.integer "se_volume"
     t.index ["user_id"], name: "index_preferences_on_user_id", unique: true
   end
 
