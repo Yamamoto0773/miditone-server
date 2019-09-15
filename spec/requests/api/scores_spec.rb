@@ -6,7 +6,7 @@ RSpec.describe 'Scores', type: :request do
   let!(:user) { create(:user) }
   let!(:music1) { create(:music) }
   let!(:music2) { create(:music) }
-  let!(:score1) { create(:score, user_id: user.id, music_id: music2.id, difficulty: :hard) }
+  let!(:score1) { create(:score, user_id: user.id, music_id: music2.id, difficulty: :hard, points: 600_000) }
   let!(:score2) { create(:score, user_id: user.id, music_id: music1.id, difficulty: :easy) }
   let!(:score3) { create(:score, user_id: user.id, music_id: music1.id, difficulty: :normal) }
 
@@ -61,22 +61,43 @@ RSpec.describe 'Scores', type: :request do
 
     it 'create a score' do
       is_expected.to eq 201
+      expect(json['data']['attributes']['played_times']).to eq 1
     end
   end
 
   describe 'PUT /api/scores/:id' do
-    let(:id) { score1.id }
-    let(:params) do
-      {
-        score: {
-          points: 800_000
+    context 'update score' do
+      let(:id) { score1.id }
+      let(:params) do
+        {
+          score: {
+            points: 800_000
+          }
         }
-      }
+      end
+
+      it 'update a score' do
+        is_expected.to eq 200
+        expect(json['data']['attributes']['points']).to eq 800_000
+        expect(json['data']['attributes']['played_times']).to eq 2
+      end
     end
 
-    it 'update a score' do
-      is_expected.to eq 200
-      expect(json['data']['attributes']['points']).to eq 800_000
+    context 'dont update score' do
+      let(:id) { score1.id }
+      let(:params) do
+        {
+          score: {
+            points: 400_000
+          }
+        }
+      end
+
+      it 'update a score' do
+        is_expected.to eq 200
+        expect(json['data']['attributes']['points']).to eq 600_000
+        expect(json['data']['attributes']['played_times']).to eq 2
+      end
     end
   end
 
