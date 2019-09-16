@@ -12,7 +12,7 @@ module Api
       if @user.preference.update(preference_params)
         render json: PreferenceSerializer.new(@user.preference)
       else
-        render_validation_errors @errors
+        render_validation_errors @user.preference
       end
     end
 
