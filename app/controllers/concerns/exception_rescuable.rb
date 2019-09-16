@@ -28,7 +28,7 @@ module ExceptionRescuable
   end
 
   def unauthorized_error
-    render403(
+    render401(
       messages: 'Invalid authorization token'
     )
   end
