@@ -27,11 +27,11 @@ RSpec.describe 'HttpAuthorizable', type: :request do
         }
       end
 
-      it { is_expected.to eq 403 }
+      it { is_expected.to eq 401 }
     end
 
     context 'with no token' do
-      it { is_expected.to eq 403 }
+      it { is_expected.to eq 401 }
     end
   end
 end

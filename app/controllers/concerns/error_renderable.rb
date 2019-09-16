@@ -15,10 +15,10 @@ module ErrorRenderable
     )
   end
 
-  def render403(messages:)
+  def render401(messages:)
     render_error(
-      code: 403,
-      title: 'Forbidden',
+      code: 401,
+      title: 'Unauthorized',
       messages: messages
     )
   end
