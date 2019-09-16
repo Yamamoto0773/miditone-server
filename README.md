@@ -122,21 +122,21 @@ please type `ctrl-c` in your terminal where running application.
 |URI|VERB|DESCRIPTION|PARAMETERS|
 |--|--|--|--|
 |`/api/users`                     |`GET`    |get users||
-|`/api/users         `            |`POST`   |create a user|[params](#post/put-user)|
+|`/api/users         `            |`POST`   |create a user|[params](#postput-user)|
 |`/api/users/{qrcode}`            |`GET`    |get a user specified by QR code|
-|`/api/users/{qrcode}`            |`PUT`    |update a user specified by QR code|[params](#post/put-user)
+|`/api/users/{qrcode}`            |`PUT`    |update a user specified by QR code|[params](#postput-user)
 |`/api/users/{qrcode}`            |`DELETE` |destroy a user specified by QR code|
 |`/api/users/{qrcode}/preference` |`GET`    |get user's preference|
 |`/api/users/{qrcode}/preference` |`PUT`    |update user's preference|[params](#put-preference)
-|`/api/users/{qrcode}/scores`     |`GET`    |get user's scores|[params](#post/get-score)
-|`/api/users/{qrcode}/scores`     |`POST`   |create user's score|[params](#post/put-score)
+|`/api/users/{qrcode}/scores`     |`GET`    |get user's scores|[params](#get-score)
+|`/api/users/{qrcode}/scores`     |`POST`   |create user's score|[params](#postput-score)
 |`/api/users/scores/{id}`         |`GET`    |get a score specified by record id|
-|`/api/users/scores/{id}`         |`PUT`    |update a score specified by record id|[params](#post/put-score)
+|`/api/users/scores/{id}`         |`PUT`    |update a score specified by record id|[params](#postput-score)
 |`/api/users/scores/{id}`         |`DELETE` |destroy a score specified by record id|
 |`/api/musics`                    |`GET`    |get musics|
-|`/api/musics`                    |`POST`   |create a music|[params](#post/put-music)
+|`/api/musics`                    |`POST`   |create a music|[params](#postput-music)
 |`/api/musics/{id}`               |`GET`    |get a music specified by music ID|
-|`/api/musics/{id}`               |`PUT`    |update a music specified by music ID|[params](#post/put-music)
+|`/api/musics/{id}`               |`PUT`    |update a music specified by music ID|[params](#postput-music)
 |`/api/musics/{id}`               |`DELETE` |destroy a music specified by music ID|
 |`/api/musics/{id}/ranking`       |`GET`    |get all user's scores of specified music|[params](#get-ranking)
 |`/api/musics/played_times`       |`GET`    |get played times of each musics|
