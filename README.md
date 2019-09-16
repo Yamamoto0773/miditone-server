@@ -7,6 +7,8 @@ Ranking server for miditone#, Koreisai2019 5J Project.
   - Ruby 2.6.4
   - Rails 6.0.0
   - MySQL 8.0
+- Authenticated by
+  - `ActionController::HttpAuthentication::Token`
 
 ## How to Build
 How to build in case of using docker. If you don't use docker, see [this desciption](#execute-without-Docker).
@@ -20,15 +22,18 @@ $ build
 $ rake db:create ridgepole:apply
 ```
 
+## Create Token
+
+
 ## Launch
-move to app directory, and then type
+Type commands in application root directory
 ```sh
 $ up
 ```
 Lanch complete when displayed 'Use Ctrl-C to stop' in your terminal
 
 ## Terminate
-type `ctrl-c` in your terminal where running application
+Type `ctrl-c` in your terminal where running application
 
 or, in another terminal
 
@@ -63,7 +68,7 @@ $ mysql -u root -p # enter mysql terminal, require root password
 > GRANT ALL ON *.* TO 'username'@'localhost'; # grant permission to created user
 > exit
 ```
-5. Move to Application directory, and update `config/database.yml`.  
+5. Move to Application root directory, and update `config/database.yml`.  
 change username, password and host in default section.
 ```yml
 (truncated)
@@ -79,7 +84,7 @@ default: &default
 (truncated)
 ```
 6. Install gems  
-first, move to application directory.
+first, move to application root directory.
 ```sh
 $ bundle exec bundle install --path ./vendor/bundle
 ```
