@@ -10,6 +10,9 @@ Bundler.require(*Rails.groups)
 
 module MiditoneServer
   class Application < Rails::Application
+    # API mode
+    config.api_only = true
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 

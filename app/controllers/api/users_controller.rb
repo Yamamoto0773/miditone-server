@@ -2,8 +2,6 @@
 
 module Api
   class UsersController < BaseController
-    protect_from_forgery
-
     before_action :set_user, except: %i[index create]
 
     def index

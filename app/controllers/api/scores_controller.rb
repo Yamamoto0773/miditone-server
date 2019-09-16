@@ -2,8 +2,6 @@
 
 module Api
   class ScoresController < BaseController
-    protect_from_forgery
-
     before_action :set_user, only: %i[index create]
     before_action :set_score, except: %i[index create]
 
