@@ -2,8 +2,6 @@
 
 module Api
   class MusicsController < BaseController
-    protect_from_forgery
-
     before_action :set_music, except: %i[index create played_times_of_all_musics]
 
     def index

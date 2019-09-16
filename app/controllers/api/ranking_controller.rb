@@ -2,8 +2,6 @@
 
 module Api
   class RankingController < BaseController
-    protect_from_forgery
-
     before_action :set_music
 
     def index

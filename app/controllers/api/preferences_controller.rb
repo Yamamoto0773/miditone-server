@@ -2,8 +2,6 @@
 
 module Api
   class PreferencesController < BaseController
-    protect_from_forgery
-
     before_action :set_user
 
     def show
