@@ -35,6 +35,13 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["user_id"], name: "index_scores_on_user_id"
   end
 
+  create_table "tokens", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "digest_hash", null: false
+    t.index ["digest_hash"], name: "index_tokens_on_digest_hash", unique: true
+    t.index ["name"], name: "index_tokens_on_name", unique: true
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin", force: :cascade do |t|
     t.string "qrcode", null: false
     t.string "name", null: false

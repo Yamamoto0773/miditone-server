@@ -12,6 +12,8 @@ Rails.application.routes.draw do
       get :played_times, to: 'musics#played_times_of_a_music', on: :member
       get :played_times, to: 'musics#played_times_of_all_musics', on: :collection
     end
+
+    get 'health_check', to: 'base#health_check'
   end
 
   namespace :manage do

@@ -21,6 +21,8 @@ module MiditoneServer
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
+    config.paths.add 'lib', eager_load: true
+
     config.generators do |g|
       g.test_framework = 'rspec'
       g.helper_specs = false

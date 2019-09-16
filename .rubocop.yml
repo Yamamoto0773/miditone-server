@@ -42,6 +42,8 @@ Layout/AlignArguments:
   Enabled: false
 Style/SymbolArray:
   Enabled: false
+Style/WordArray:
+  Enabled: false
 
 Naming/PredicateName:
   Exclude:
