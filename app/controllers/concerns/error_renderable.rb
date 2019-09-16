@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module ErrorRenderable
+  private
+
   def render_validation_errors(obj)
     render400 messages: obj.errors.full_messages
   end
@@ -9,6 +11,14 @@ module ErrorRenderable
     render_error(
       code: 400,
       title: 'Bad Request',
+      messages: messages
+    )
+  end
+
+  def render403(messages:)
+    render_error(
+      code: 403,
+      title: 'Forbidden',
       messages: messages
     )
   end

@@ -6,9 +6,13 @@ module ExceptionRescuable
   included do
     include ErrorRenderable
 
-    rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-    rescue_from ActionController::ParameterMissing, with: :parameter_missing
+    rescue_from ActiveRecord::RecordNotFound,                   with: :record_not_found
+    rescue_from ActionController::ParameterMissing,             with: :parameter_missing
+
+    rescue_from Exceptions::HttpAuthorizable::InvalidToken,     with: :unauthorized_error
   end
+
+  private
 
   def record_not_found
     render404(
@@ -19,7 +23,13 @@ module ExceptionRescuable
 
   def parameter_missing
     render400(
-      messages: 'パラメータが不足しています'
+      messages: 'Parameter missing'
+    )
+  end
+
+  def unauthorized_error
+    render403(
+      messages: 'Invalid authorization token'
     )
   end
 end
