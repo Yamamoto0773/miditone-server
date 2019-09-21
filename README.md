@@ -1,6 +1,19 @@
 # miditone-server
 Ranking server for miditone#, Koreisai2019 5J Project.
 
+## Index
+
+- [Using](#using)
+- [How to Build](#how-to-build)
+- [Create Token](#create-token)
+- [Launch](#launch)
+- [Terminate](#terminate)
+- [Execute without Docker](#execute-without-docker)
+- [API Routes](#api-routes)
+- [Authorization](#authorization)
+- [Request Parameters](#request-parameters)
+
+
 ## Using
 - Docker
 - in Docker container
@@ -14,7 +27,7 @@ Ranking server for miditone#, Koreisai2019 5J Project.
 ## How to Build
 How to build in case of using docker. If you don't use docker, see [this desciption](#execute-without-Docker).
 
-type commands in your terminal
+please type command on your terminal
 ```sh
 $ git clone https://github.com/Yamamoto0773/miditone-server.git
 $ cd miditone-server
@@ -24,8 +37,8 @@ $ rake db:create ridgepole:apply
 ```
 
 ## Create Token
-In application root directory, type following command to create token by `name` and `key`.  
-please `name` and `key` replace with you like. **DO NOT INSERT SPACE AFTER COMMA.**
+In application root directory, type following command to create token with `name` and `key`.  
+please replace`name` and `key` with something. **DO NOT INSERT SPACE AFTER COMMA.**
 ```sh
 $ rake token:create[name,key]
 ```
@@ -33,19 +46,21 @@ example
 ```sh
 $ rake token:create[sample,secure]
 ```
-Then, appear token in your terminal.
+after running, token will be displayed on your terminal.
+
+see also : [Authorization](#authorization)
 
 ## Launch
-Type commands in application root directory
+Type commands on application root directory
 ```sh
 $ up
 ```
-Launch complete when 'Use Ctrl-C to stop' is printed in your terminal.
+Launch complete when 'Use Ctrl-C to stop' is printed on your terminal.
 
 ## Terminate
-Type `ctrl-c` in your terminal where running application
+Please type `ctrl-c` in your terminal where running application
 
-or, in another terminal
+Or, on another terminal
 
 1. find working containers
 ```sh
@@ -71,10 +86,10 @@ character-set-server=utf8mb4
 $ server mysql restart
 ```
 4. Create a user of mysql.   
-please replace `username` and `password` with you like
+please replace `username` and `password` with something
 ```sh
 $ mysql -u root -p # enter mysql terminal, require root password
-> CREATE USER 'username'@'localhost' IDENTIFIED BY 'password'; # create user by username and password
+> CREATE USER 'username'@'localhost' IDENTIFIED BY 'password'; # create user with username and password
 > GRANT ALL ON *.* TO 'username'@'localhost'; # grant permission to created user
 > exit
 ```
@@ -94,7 +109,7 @@ default: &default
 (truncated)
 ```
 6. Install gems  
-first, move to application root directory.
+in application root directory
 ```sh
 $ bundle exec bundle install --path ./vendor/bundle
 ```
@@ -103,8 +118,8 @@ $ bundle exec bundle install --path ./vendor/bundle
 $ bundle exec rake db:create ridgepole:apply
 ```
 8. Create Token  
-please `name` and `key` replace with you like. **DO NOT INSERT SPACE AFTER COMMA.**  
-Then, appear token hashed by SHA512 in your terminal.
+please replace `name` and `key` with something. **DO NOT INSERT SPACE AFTER COMMA.**  
+token will be displayed on your terminal.
 ```sh
 $ bundle exec rake token:create[name,key]
 ```
@@ -113,7 +128,7 @@ $ bundle exec rake token:create[name,key]
 bundle exec rails s -b 0.0.0.0
 ```
 10. Terminate Web Server  
-please type `ctrl-c` in your terminal where running application.
+please type `ctrl-c` on your terminal where running application.
 
 
 ## API Routes
@@ -145,13 +160,13 @@ please type `ctrl-c` in your terminal where running application.
 
 
 ## Authorization
-Check at [Create Token Section](#create-token).  
+See also: [Create Token](#create-token).  
 
 Header Format
 ```http
 Authorization: Bearer Token
 ```
-Please replace `Token` with you created
+please replace `Token` with created one.
 
 
 ## Request Parameters
@@ -207,9 +222,9 @@ example
 ```
 #### Restriction
 - `note_speed` : Number/Null
-  - greather than or equal to 0.0 if not null
+  - greater than or equal to 0.0 if not null
 - `se_volume` : Number/Null
-  - greather than or equal to 0 if not null
+  - greater than or equal to 0 if not null
 
 #### Response
 example
@@ -237,7 +252,7 @@ example
 
 #### Restriction
 - `difficulty` : String
-  - only following string
+  - only following strings
     - `"easy"`
     - `"normal"`
     - `"hard"`
@@ -304,7 +319,7 @@ example
 - `music_id` : Number
   - existing music id
 - `difficulty` : String
-  - only following string
+  - only following strings
     - `"easy"`
     - `"normal"`
     - `"hard"`
@@ -359,13 +374,13 @@ same as GET Score
 
 #### Restriction
 - `difficulty` : String
-  - only following string
+  - only following strings
     - `"easy"`
     - `"normal"`
     - `"hard"`
 
 #### Response
-- in descending order of points
+- Elements are sorted in descending order of points
 ```json
 {
   "data": [
