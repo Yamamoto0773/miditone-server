@@ -51,7 +51,7 @@ after running, token will be displayed on your terminal.
 see also : [Authorization](#authorization)
 
 ## Launch
-Type commands in application root directory
+Type commands on application root directory
 ```sh
 $ up
 ```
@@ -128,7 +128,7 @@ $ bundle exec rake token:create[name,key]
 bundle exec rails s -b 0.0.0.0
 ```
 10. Terminate Web Server  
-please type `ctrl-c` in your terminal where running application.
+please type `ctrl-c` on your terminal where running application.
 
 
 ## API Routes
@@ -380,7 +380,7 @@ same as GET Score
     - `"hard"`
 
 #### Response
-- in descending order of points
+- Elements are sorted in descending order of points
 ```json
 {
   "data": [
