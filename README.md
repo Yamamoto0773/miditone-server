@@ -25,6 +25,7 @@ Ranking server for miditone#, Koreisai2019 5J Project.
   - hashed by `SHA::512` in creating token
 
 ## How to Build
+⚠️ **Please Use Bash Terminal**  
 How to build in case of using docker. If you don't use docker, see [this desciption](#execute-without-Docker).
 
 please type command on your terminal
