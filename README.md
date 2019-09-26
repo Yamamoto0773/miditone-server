@@ -25,6 +25,7 @@ Ranking server for miditone#, Koreisai2019 5J Project.
   - hashed by `SHA::512` in creating token
 
 ## How to Build
+⚠️ **Please Use Bash Terminal**  
 How to build in case of using docker. If you don't use docker, see [this desciption](#execute-without-Docker).
 
 please type command on your terminal
@@ -51,14 +52,14 @@ after running, token will be displayed on your terminal.
 see also : [Authorization](#authorization)
 
 ## Launch
-Type commands on application root directory
+Type commands in application root directory
 ```sh
 $ up
 ```
 Launch complete when 'Use Ctrl-C to stop' is printed on your terminal.
 
 ## Terminate
-Please type `ctrl-c` in your terminal where running application
+Please type `ctrl-c` on your terminal where application is running.
 
 Or, on another terminal
 
@@ -119,7 +120,7 @@ $ bundle exec rake db:create ridgepole:apply
 ```
 8. Create Token  
 please replace `name` and `key` with something. **DO NOT INSERT SPACE AFTER COMMA.**  
-token will be displayed on your terminal.
+after running, token will be displayed on your terminal.
 ```sh
 $ bundle exec rake token:create[name,key]
 ```
@@ -128,7 +129,7 @@ $ bundle exec rake token:create[name,key]
 bundle exec rails s -b 0.0.0.0
 ```
 10. Terminate Web Server  
-please type `ctrl-c` on your terminal where running application.
+please type `ctrl-c` on your terminal where application is running.
 
 
 ## API Routes
