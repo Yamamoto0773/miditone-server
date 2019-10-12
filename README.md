@@ -34,7 +34,7 @@ $ git clone https://github.com/Yamamoto0773/miditone-server.git
 $ cd miditone-server
 $ source env.sh
 $ build
-$ rake db:create ridgepole:apply
+$ rake db:create ridgepole:apply db:seed
 ```
 
 ## Create Token
