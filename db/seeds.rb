@@ -9,6 +9,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 10.times do
-  u = User.create(name: FFaker::Lorem.characters(10), qrcode: random_number_str(12))
+  u = User.create(name: FFaker::Lorem.characters(10), qrcode: ApplicationHelper::random_number_str(12))
   u.create_preference!(note_speed: rand(1..10) + rand(2) / 2.0, se_volume: rand(0..10))
 end
