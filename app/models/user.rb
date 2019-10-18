@@ -2,7 +2,7 @@
 
 class User < ApplicationRecord
   has_many :scores, dependent: :destroy
-  has_one :preference, dependent: :destroy
+  has_many :preferences, dependent: :destroy
 
   validates :qrcode,
     presence: true,

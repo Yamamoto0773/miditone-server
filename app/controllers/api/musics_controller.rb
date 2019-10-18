@@ -39,32 +39,6 @@ module Api
       end
     end
 
-    def played_times_of_all_musics
-      played_times = {}
-      Music.find_each do |music|
-        played_times.store(
-          music.id,
-          music.scores.pluck(:played_times).sum
-        )
-      end
-
-      render json: played_times
-    end
-
-    def played_times_of_a_music
-      played_times = {}
-      Score.difficulty.values.each do |difficulty|
-        played_times.store(
-          difficulty,
-          Score.where(music_id: @music.id, difficulty: difficulty).pluck(:played_times).sum
-        )
-      end
-
-      sum = played_times.values.reduce(:+)
-
-      render json: played_times.merge(total: sum)
-    end
-
     private
 
     def set_music

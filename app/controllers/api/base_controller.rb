@@ -16,5 +16,17 @@ module Api
         luck: "#{rand(0..10) * 10}% lucky today!"
       }
     end
+
+    private
+
+    def platform
+      unless @platform
+        resources = request.fullpath.split('/')
+        scope = resources.find { |r| r == 'button' } || resources.find { |r| r == 'balance_board' }
+        @platform = scope
+      end
+
+      @platform
+    end
   end
 end

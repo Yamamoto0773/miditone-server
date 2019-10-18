@@ -1,6 +1,8 @@
 create_table :tokens, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
   t.string    :name,         null: false
   t.string    :digest_hash,  null: false
+
+  t.timestamps
 end
 
 add_index :tokens, :name, unique: true

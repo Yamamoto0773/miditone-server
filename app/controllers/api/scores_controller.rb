@@ -2,17 +2,19 @@
 
 module Api
   class ScoresController < BaseController
+    include ScoresGettable
+
     before_action :set_user, only: %i[index create]
     before_action :set_score, except: %i[index create]
 
     def index
-      @scores = if given_difficulty_params?
-                  @user.scores.where(difficulty: params[:difficulty]).order(:music_id)
+      scores = if given_difficulty_params?
+                  get_platform_scores(parent: @user).where(difficulty: params[:difficulty]).order(:music_id)
                 else
-                  @user.scores.order(:music_id, :difficulty)
+                  get_platform_scores(parent: @user)
                 end
 
-      render json: ScoreSerializer.new(@scores, include: include_list)
+      render json: ScoreSerializer.new(scores, include: include_list)
     end
 
     def show
@@ -20,7 +22,7 @@ module Api
     end
 
     def create
-      @score = @user.scores.build(score_params.merge(played_times: 1))
+      score = @user.scores.build(score_params.merge(played_times: 1, platform: platform))
 
       if @score.save
         render json: ScoreSerializer.new(@score, include: include_list), status: :created
@@ -30,8 +32,7 @@ module Api
     end
 
     def update
-      @score.points = params[:score][:points] if params[:score]&.key?(:points) && params[:score][:points].to_i > @score.points
-      @score.played_times += 1
+      score = Scores::UpdateService.new(score: @score, params: score_params).execute
 
       if @score.save
         render json: ScoreSerializer.new(@score, include: include_list)

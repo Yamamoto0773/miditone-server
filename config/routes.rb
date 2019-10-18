@@ -3,14 +3,23 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :api do
-    resources :users, param: :qrcode do
-      resources :scores, shallow: true
+    concern :users_data do
+      resources :scores
       resource :preference, only: [:update, :show]
     end
-    resources :musics do
+    concern :statistics do
       resources :ranking, only: [:index]
-      get :played_times, to: 'musics#played_times_of_a_music', on: :member
-      get :played_times, to: 'musics#played_times_of_all_musics', on: :collection
+      get :played_times, to: 'played_times#of_a_music', on: :member
+      get :played_times, to: 'played_times#of_all_musics', on: :collection
+    end
+
+    scope :button do
+      resources :users, param: :qrcode, concerns: :users_data
+      resources :musics, concerns: :statistics
+    end
+    scope :balance_board do
+      resources :users, param: :qrcode, concerns: :users_data
+      resources :musics, concerns: :statistics
     end
 
     get 'health_check', to: 'base#health_check'

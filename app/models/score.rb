@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 class Score < ApplicationRecord
-  extend Enumerize
+  include Platform
 
   belongs_to :user
   belongs_to :music
 
-  validates :user_id, :music_id, :difficulty, :points,
+  validates :user_id, :music_id, :difficulty, :points, :played_times, :platform,
     presence: true
-  validates :user_id,
-    uniqueness: { scope: %i[music_id difficulty] }
+  validates :difficulty,
+    uniqueness: { scope: %i[user_id music_id platform] }
   validates :points,
     numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 1_000_000 }
 

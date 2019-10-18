@@ -19,11 +19,12 @@ module Api
         @user.save!
       rescue ActiveRecord::RecordNotUnique
         retry
-      rescue StandardError
+      rescue ActiveRecord::RecordInvalid
         return render_validation_errors @user
       end
 
-      @user.create_preference!
+      @user.preferences.create!(platform: :button)
+      @user.preferences.create!(platform: :balance_board)
 
       render json: UserSerializer.new(@user), status: :created
     end
