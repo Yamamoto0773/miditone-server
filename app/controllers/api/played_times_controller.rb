@@ -4,7 +4,7 @@ module Api
   class PlayedTimesController < BaseController
     include ScoresGettable
 
-    before_action :set_music, only: :played_times_of_a_music
+    before_action :set_music, only: :of_music
 
     def of_all_musics
       played_times = {}
@@ -18,7 +18,7 @@ module Api
       render json: played_times
     end
 
-    def of_a_music
+    def of_music
       played_times = {}
       Score.difficulty.values.each do |difficulty|
         played_times.store(
@@ -35,7 +35,7 @@ module Api
     private
 
     def set_music
-      @music = Music.find(params[:music_id])
+      @music = Music.find(params[:id])
     end
   end
 end

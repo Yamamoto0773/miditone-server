@@ -9,10 +9,12 @@ module Api
 
     def index
       scores = if given_difficulty_params?
-                  get_platform_scores(parent: @user).where(difficulty: params[:difficulty]).order(:music_id)
-                else
-                  get_platform_scores(parent: @user)
-                end
+                 get_platform_scores(parent: @user).where(difficulty: params[:difficulty]).order(:music_id)
+               else
+                 get_platform_scores(parent: @user)
+               end
+
+      scores = scores.includes(include_list)
 
       render json: ScoreSerializer.new(scores, include: include_list)
     end
@@ -24,21 +26,19 @@ module Api
     def create
       score = @user.scores.build(score_params.merge(played_times: 1, platform: platform))
 
-      if @score.save
-        render json: ScoreSerializer.new(@score, include: include_list), status: :created
+      if score.save
+        render json: ScoreSerializer.new(score, include: include_list), status: :created
       else
-        render_validation_errors @score
+        render_validation_errors score
       end
     end
 
     def update
-      score = Scores::UpdateService.new(score: @score, params: score_params).execute
+      Scores::UpdateService.new(score: @score, params: score_params).execute!
 
-      if @score.save
-        render json: ScoreSerializer.new(@score, include: include_list)
-      else
-        render_validation_errors @score
-      end
+      render json: ScoreSerializer.new(@score, include: include_list)
+    rescue ActiveRecord::RecordInvalid => e
+      render_validation_errors e.record
     end
 
     def destroy

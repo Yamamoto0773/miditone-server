@@ -2,7 +2,7 @@
 
 module Api
   class MusicsController < BaseController
-    before_action :set_music, except: %i[index create played_times_of_all_musics]
+    before_action :set_music, except: %i[index create]
 
     def index
       @music = Music.all

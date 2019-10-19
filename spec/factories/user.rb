@@ -7,7 +7,7 @@ FactoryBot.define do
 
     after(:create) do |user|
       user.preferences.create!(platform: :button)
-      user.preferences.create!(platform: :balance_board)
+      user.preferences.create!(platform: :board)
     end
   end
 end

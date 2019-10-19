@@ -22,7 +22,7 @@ module Api
     def platform
       unless @platform
         resources = request.fullpath.split('/')
-        scope = resources.find { |r| r == 'button' } || resources.find { |r| r == 'balance_board' }
+        scope = resources.find { |r| r == 'button' } || resources.find { |r| r == 'board' }
         @platform = scope
       end
 

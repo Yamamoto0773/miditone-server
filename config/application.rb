@@ -22,6 +22,9 @@ module MiditoneServer
     # the framework and any gems in your application.
 
     config.paths.add 'lib', eager_load: true
+    config.paths.add 'config/routes/concerns', eager_load: true
+
+    config.paths['config/routes.rb'].concat Dir['config/routes/**/*.rb']
 
     config.generators do |g|
       g.test_framework = 'rspec'

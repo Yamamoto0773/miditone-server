@@ -4,8 +4,8 @@ module ScoresGettable
   extend ActiveSupport::Concern
 
   def get_platform_scores(parent:)
-    scores = if platform
-      parent.scores.with_status(platform)
+    if platform
+      parent.scores.with_platform(platform)
     else
       parent.scores
     end
