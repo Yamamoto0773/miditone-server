@@ -25,9 +25,9 @@ Ranking server for miditone#, Koreisai2019 5J Project.
   - hashed by `SHA::512` in creating token
 
 ## How to Build
-⚠️ **Please Use Bash Terminal**
-How to build in case of using docker. If you don't use docker, see [this desciption](#execute-without-Docker).
+⚠️ **Please Use Bash Terminal**  
 
+How to build in case of using docker. If you don't use docker, see [this desciption](#execute-without-Docker).  
 please type command on your terminal
 ```sh
 $ git clone https://github.com/Yamamoto0773/miditone-server.git
@@ -38,7 +38,7 @@ $ rake db:create ridgepole:apply db:seed
 ```
 
 ## Create Token
-In application root directory, type following command to create token with `name` and `key`.
+In application root directory, type following command to create token with `name` and `key`.  
 please replace`name` and `key` with something. **DO NOT INSERT SPACE AFTER COMMA.**
 ```sh
 $ rake token:create[name,key]
@@ -61,7 +61,7 @@ Launch complete when 'Use Ctrl-C to stop' is printed on your terminal.
 ## Terminate
 Please type `ctrl-c` on your terminal where application is running.
 
-Or, on another terminal
+OR, on another terminal
 
 1. find working containers
 ```sh
@@ -86,7 +86,7 @@ character-set-server=utf8mb4
 ```sh
 $ server mysql restart
 ```
-4. Create a user of mysql.
+4. Create a user of mysql.  
 please replace `username` and `password` with something
 ```sh
 $ mysql -u root -p # enter mysql terminal, require root password
@@ -94,7 +94,7 @@ $ mysql -u root -p # enter mysql terminal, require root password
 > GRANT ALL ON *.* TO 'username'@'localhost'; # grant permission to created user
 > exit
 ```
-5. Move to Application root directory, and edit `config/database.yml`.
+5. Move to Application root directory, and edit `config/database.yml`.  
 change username, password and host in default section.
 ```yml
 (truncated)
@@ -118,8 +118,8 @@ $ bundle exec bundle install --path ./vendor/bundle
 ```sh
 $ bundle exec rake db:create ridgepole:apply
 ```
-8. Create Token
-please replace `name` and `key` with something. **DO NOT INSERT SPACE AFTER COMMA.**
+8. Create Token  
+please replace `name` and `key` with something. **DO NOT INSERT SPACE AFTER COMMA.**  
 after running, token will be displayed on your terminal.
 ```sh
 $ bundle exec rake token:create[name,key]
@@ -128,7 +128,7 @@ $ bundle exec rake token:create[name,key]
 ```sh
 bundle exec rails s -b 0.0.0.0
 ```
-10. Terminate Web Server
+10. Terminate Web Server  
 please type `ctrl-c` on your terminal where application is running.
 
 
