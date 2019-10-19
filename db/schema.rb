@@ -35,6 +35,11 @@ ActiveRecord::Schema.define(version: 0) do
     t.bigint "music_id", null: false
     t.string "difficulty", null: false
     t.integer "points", null: false
+    t.integer "max_combo", null: false
+    t.integer "critical_count", null: false
+    t.integer "correct_count", null: false
+    t.integer "nice_count", null: false
+    t.integer "miss_count", null: false
     t.integer "played_times", default: 0, null: false
     t.string "platform", null: false
     t.datetime "created_at", null: false
