@@ -62,7 +62,13 @@ module Api
     def score_params
       params.require(:score).permit(
         :music_id,
-        :difficulty,:points, :max_combo
+        :difficulty,
+        :points,
+        :max_combo,
+        :critical_count,
+        :correct_count,
+        :nice_count,
+        :miss_count
       )
     end
 
