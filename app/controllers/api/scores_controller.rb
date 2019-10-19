@@ -60,7 +60,16 @@ module Api
     end
 
     def score_params
-      params.require(:score).permit(:music_id, :difficulty, :points)
+      params.require(:score).permit(
+        :music_id,
+        :difficulty,
+        :points,
+        :max_combo,
+        :critical_count,
+        :correct_count,
+        :nice_count,
+        :miss_count
+      )
     end
 
     def given_difficulty_params?

@@ -61,7 +61,12 @@ RSpec.describe 'Scores', type: :request do
         score: {
           music_id: music2.id,
           difficulty: :normal,
-          points: 700_000
+          points: 700_000,
+          max_combo: 200,
+          critical_count: 300,
+          correct_count: 50,
+          nice_count: 10,
+          miss_count: 1
         }
       }
     end
@@ -78,7 +83,12 @@ RSpec.describe 'Scores', type: :request do
       let(:params) do
         {
           score: {
-            points: 800_000
+            points: 800_000,
+            max_combo: 200,
+            critical_count: 300,
+            correct_count: 50,
+            nice_count: 10,
+            miss_count: 1,
           }
         }
       end

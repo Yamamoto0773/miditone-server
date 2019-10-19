@@ -25,7 +25,7 @@ Ranking server for miditone#, Koreisai2019 5J Project.
   - hashed by `SHA::512` in creating token
 
 ## How to Build
-⚠️ **Please Use Bash Terminal**  
+⚠️ **Please Use Bash Terminal**
 How to build in case of using docker. If you don't use docker, see [this desciption](#execute-without-Docker).
 
 please type command on your terminal
@@ -38,7 +38,7 @@ $ rake db:create ridgepole:apply db:seed
 ```
 
 ## Create Token
-In application root directory, type following command to create token with `name` and `key`.  
+In application root directory, type following command to create token with `name` and `key`.
 please replace`name` and `key` with something. **DO NOT INSERT SPACE AFTER COMMA.**
 ```sh
 $ rake token:create[name,key]
@@ -86,7 +86,7 @@ character-set-server=utf8mb4
 ```sh
 $ server mysql restart
 ```
-4. Create a user of mysql.  
+4. Create a user of mysql.
 please replace `username` and `password` with something
 ```sh
 $ mysql -u root -p # enter mysql terminal, require root password
@@ -94,7 +94,7 @@ $ mysql -u root -p # enter mysql terminal, require root password
 > GRANT ALL ON *.* TO 'username'@'localhost'; # grant permission to created user
 > exit
 ```
-5. Move to Application root directory, and edit `config/database.yml`.  
+5. Move to Application root directory, and edit `config/database.yml`.
 change username, password and host in default section.
 ```yml
 (truncated)
@@ -109,7 +109,7 @@ default: &default
 
 (truncated)
 ```
-6. Install gems  
+6. Install gems
 in application root directory
 ```sh
 $ bundle exec bundle install --path ./vendor/bundle
@@ -118,8 +118,8 @@ $ bundle exec bundle install --path ./vendor/bundle
 ```sh
 $ bundle exec rake db:create ridgepole:apply
 ```
-8. Create Token  
-please replace `name` and `key` with something. **DO NOT INSERT SPACE AFTER COMMA.**  
+8. Create Token
+please replace `name` and `key` with something. **DO NOT INSERT SPACE AFTER COMMA.**
 after running, token will be displayed on your terminal.
 ```sh
 $ bundle exec rake token:create[name,key]
@@ -128,12 +128,12 @@ $ bundle exec rake token:create[name,key]
 ```sh
 bundle exec rails s -b 0.0.0.0
 ```
-10. Terminate Web Server  
+10. Terminate Web Server
 please type `ctrl-c` on your terminal where application is running.
 
 
 ## API Routes
-⚠️ **Need Authorization Token at All End Points**  
+⚠️ **Need Authorization Token at All End Points**
 
 scope `platform` indicates game version.
 please specify `button` or `board`.
@@ -197,21 +197,47 @@ example
 ```json
 {
   "data": {
-    "id": "9",
+    "id": "1",
     "type": "user",
     "attributes": {
-      "qrcode": "314680525611",
-      "name": "sdaf9"
+      "qrcode": "480396536019",
+      "name": "xak50c1bhp"
     },
     "relationships": {
-      "preference": {
-        "data": {
-          "id": "6",
-          "type": "preference"
-        }
+      "preferences": {
+        "data": [
+          {
+            "id": "1",
+            "type": "preference"
+          },
+          {
+            "id": "2",
+            "type": "preference"
+          }
+        ]
       }
     }
-  }
+  },
+  "included": [
+    {
+      "id": "2",
+      "type": "preference",
+      "attributes": {
+        "note_speed": 3.0,
+        "se_volume": 3,
+        "platform": "board"
+      }
+    },
+    {
+      "id": "1",
+      "type": "preference",
+      "attributes": {
+        "note_speed": 3.0,
+        "se_volume": 2,
+        "platform": "button"
+      }
+    }
+  ]
 }
 ```
 
@@ -236,11 +262,12 @@ example
 ```json
 {
   "data": {
-    "id": "2",
+    "id": "1",
     "type": "preference",
     "attributes": {
-      "note_speed": 1.0,
-      "se_volume": 4
+      "note_speed": 3.0,
+      "se_volume": 2,
+      "platform": "button"
     }
   }
 }
@@ -270,19 +297,25 @@ example
 {
   "data": [
     {
-      "id": "2",
+      "id": "1",
       "type": "score",
       "attributes": {
-        "user_id": 2,
+        "user_id": 1,
         "music_id": 1,
         "difficulty": "easy",
         "points": 600000,
-        "played_times": 10
+        "max_combo": 200,
+        "critical_count": 350,
+        "correct_count": 120,
+        "nice_count": 10,
+        "miss_count": 20,
+        "played_times": 1,
+        "platform": "button"
       },
       "relationships": {
         "user": {
           "data": {
-            "id": "2",
+            "id": "1",
             "type": "user"
           }
         },
@@ -313,9 +346,14 @@ example
 ```json
 {
   "score": {
-    "music_id": 1,
+    "music_id": "1",
     "difficulty": "normal",
-    "points": 700000
+    "points": "900000",
+    "max_combo": "300",
+    "critical_count": "400",
+    "correct_count": "50",
+    "nice_count": "10",
+    "miss_count": "3"
   }
 }
 ```
@@ -331,6 +369,16 @@ example
 - `points` : Number
   - min: 0
   - max: 1,000,000
+- `max_combo` : Number
+  - min: 0
+- `critical_count` : Number
+  - min: 0
+- `correct_count` : Number
+  - min: 0
+- `nice_combo` : Number
+  - min: 0
+- `miss_combo` : Number
+  - min: 0
 
 
 #### Response
@@ -390,25 +438,31 @@ same as GET Score
 {
   "data": [
     {
-      "id": "5",
+      "id": "2",
       "type": "score",
       "attributes": {
-        "user_id": 5,
-        "music_id": 2,
+        "user_id": 1,
+        "music_id": 1,
         "difficulty": "normal",
-        "points": 100000,
-        "played_times": 1
+        "points": 900000,
+        "max_combo": 300,
+        "critical_count": 400,
+        "correct_count": 50,
+        "nice_count": 10,
+        "miss_count": 3,
+        "played_times": 1,
+        "platform": "button"
       },
       "relationships": {
         "user": {
           "data": {
-            "id": "5",
+            "id": "1",
             "type": "user"
           }
         },
         "music": {
           "data": {
-            "id": "2",
+            "id": "1",
             "type": "music"
           }
         }
@@ -417,7 +471,7 @@ same as GET Score
   ],
   "included": [
     {
-      "id": "2",
+      "id": "1",
       "type": "music",
       "attributes": {
         "title": "title",
@@ -425,23 +479,27 @@ same as GET Score
       }
     },
     {
-      "id": "5",
+      "id": "1",
       "type": "user",
       "attributes": {
-        "qrcode": "693632010787",
-        "name": "hweNre"
+        "qrcode": "480396536019",
+        "name": "xak50c1bhp"
       },
       "relationships": {
-        "preference": {
-          "data": {
-            "id": "2",
-            "type": "preference"
-          }
+        "preferences": {
+          "data": [
+            {
+              "id": "1",
+              "type": "preference"
+            },
+            {
+              "id": "2",
+              "type": "preference"
+            }
+          ]
         }
       }
     }
   ]
 }
 ```
-
-
