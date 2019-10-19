@@ -2,5 +2,5 @@
 
 class PreferenceSerializer < BaseSerializer
   set_type :preference
-  attributes :note_speed, :se_volume
+  attributes :note_speed, :se_volume, :platform
 end

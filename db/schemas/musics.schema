@@ -1,4 +1,6 @@
 create_table :musics, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
-  t.string :title, null: false
+  t.string :title,  null: false
   t.string :artist, null: false
+
+  t.timestamps
 end

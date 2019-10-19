@@ -6,13 +6,21 @@ RSpec.describe 'Scores', type: :request do
   let!(:user) { create(:user) }
   let!(:music1) { create(:music) }
   let!(:music2) { create(:music) }
-  let!(:score1) { create(:score, user_id: user.id, music_id: music2.id, difficulty: :hard, points: 600_000) }
-  let!(:score2) { create(:score, user_id: user.id, music_id: music1.id, difficulty: :easy) }
-  let!(:score3) { create(:score, user_id: user.id, music_id: music1.id, difficulty: :normal) }
+  let!(:score1) {
+    create(:score, user_id: user.id, music_id: music2.id, difficulty: :hard, points: 600_000, platform: :button)
+  }
+  let!(:score2) {
+    create(:score, user_id: user.id, music_id: music1.id, difficulty: :easy, platform: :button)
+  }
+  let!(:score3) {
+    create(:score, user_id: user.id, music_id: music1.id, difficulty: :normal, platform: :button)
+  }
+  let!(:board_score) {
+    create(:score, user_id: user.id, music_id: music1.id, difficulty: :normal, points: 900_000, platform: :board)
+  }
+  let(:user_qrcode) { user.qrcode }
 
-  describe 'GET /api/users/:user_qrcode/scores' do
-    let(:user_qrcode) { user.qrcode }
-
+  describe 'GET /api/users/:user_qrcode/button/scores' do
     context 'pass parameter \'difficulty\'' do
       let(:params) do
         {
@@ -38,7 +46,7 @@ RSpec.describe 'Scores', type: :request do
     end
   end
 
-  describe 'GET /api/scores/:id' do
+  describe 'GET /api/users/:user_qrcode/button/scores/:id' do
     let(:id) { score1.id }
 
     it 'return a score' do
@@ -47,8 +55,7 @@ RSpec.describe 'Scores', type: :request do
     end
   end
 
-  describe 'POST /api/users/:user_qrcode/scores' do
-    let(:user_qrcode) { user.qrcode }
+  describe 'POST /api/users/:user_qrcode/button/scores' do
     let(:params) do
       {
         score: {
@@ -65,7 +72,7 @@ RSpec.describe 'Scores', type: :request do
     end
   end
 
-  describe 'PUT /api/scores/:id' do
+  describe 'PUT /api/users/:user_qrcode/button/scores/:id' do
     context 'update score' do
       let(:id) { score1.id }
       let(:params) do
@@ -101,7 +108,7 @@ RSpec.describe 'Scores', type: :request do
     end
   end
 
-  describe 'DELETE /api/scores/:id' do
+  describe 'DELETE /api/users/:user_qrcode/button/scores/:id' do
     let(:id) { score1.id }
 
     it 'delete a score' do

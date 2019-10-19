@@ -6,7 +6,8 @@ FactoryBot.define do
     name { SecureRandom.alphanumeric(6) }
 
     after(:create) do |user|
-      user.build_preference.save!
+      user.preferences.create!(platform: :button)
+      user.preferences.create!(platform: :board)
     end
   end
 end

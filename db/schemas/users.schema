@@ -1,6 +1,8 @@
 create_table :users, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
   t.string   :qrcode,   null: false
   t.string   :name,     null: false
+
+  t.timestamps
 end
 
 add_index :users, :qrcode, unique: true

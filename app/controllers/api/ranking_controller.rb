@@ -2,16 +2,20 @@
 
 module Api
   class RankingController < BaseController
+    include ScoresGettable
+
     before_action :set_music
 
     def index
-      @scores = if given_difficulty_params?
-                  @music.scores.where(difficulty: params[:difficulty]).order(points: :desc)
-                else
-                  @music.scores.order([points: :desc], :difficulty)
-                end
+      scores = if given_difficulty_params?
+                 get_platform_scores(parent: @music).where(difficulty: params[:difficulty])
+               else
+                 get_platform_scores(parent: @music)
+               end
 
-      render json: ScoreSerializer.new(@scores, include: include_list)
+      scores = scores.order([points: :desc], :difficulty).includes(include_list)
+
+      render json: ScoreSerializer.new(scores, include: include_list)
     end
 
     private

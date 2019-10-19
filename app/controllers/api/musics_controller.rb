@@ -2,7 +2,7 @@
 
 module Api
   class MusicsController < BaseController
-    before_action :set_music, except: %i[index create played_times_of_all_musics]
+    before_action :set_music, except: %i[index create]
 
     def index
       @music = Music.all
@@ -37,32 +37,6 @@ module Api
       else
         render_validation_errors @music
       end
-    end
-
-    def played_times_of_all_musics
-      played_times = {}
-      Music.find_each do |music|
-        played_times.store(
-          music.id,
-          music.scores.pluck(:played_times).sum
-        )
-      end
-
-      render json: played_times
-    end
-
-    def played_times_of_a_music
-      played_times = {}
-      Score.difficulty.values.each do |difficulty|
-        played_times.store(
-          difficulty,
-          Score.where(music_id: @music.id, difficulty: difficulty).pluck(:played_times).sum
-        )
-      end
-
-      sum = played_times.values.reduce(:+)
-
-      render json: played_times.merge(total: sum)
     end
 
     private

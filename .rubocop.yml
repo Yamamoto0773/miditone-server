@@ -71,7 +71,7 @@ Layout/ExtraSpacing:
   Enabled: false
 
 Metrics/LineLength:
-  Max: 140
+  Max: 120
   Exclude:
     - db/seeds.rb
     - config/initializers/devise.rb

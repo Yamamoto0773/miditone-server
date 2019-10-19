@@ -86,7 +86,7 @@ character-set-server=utf8mb4
 ```sh
 $ server mysql restart
 ```
-4. Create a user of mysql.   
+4. Create a user of mysql.  
 please replace `username` and `password` with something
 ```sh
 $ mysql -u root -p # enter mysql terminal, require root password
@@ -106,7 +106,7 @@ default: &default
   username: username # change to username you set at step.4
   password: password # change to password you set at step.4
   host: localhost # change to localhost
- 
+
 (truncated)
 ```
 6. Install gems  
@@ -133,35 +133,39 @@ please type `ctrl-c` on your terminal where application is running.
 
 
 ## API Routes
-**Need Authorization Token at All End Points**
+⚠️ **Need Authorization Token at All End Points**  
+
+scope `platform` indicates game version.
+please specify `button` or `board`.
+
 
 |URI|VERB|DESCRIPTION|PARAMETERS|
 |--|--|--|--|
-|`/api/users`                     |`GET`    |get users||
-|`/api/users         `            |`POST`   |create a user|[params](#postput-user)|
-|`/api/users/{qrcode}`            |`GET`    |get a user specified by QR code|
-|`/api/users/{qrcode}`            |`PUT`    |update a user specified by QR code|[params](#postput-user)
-|`/api/users/{qrcode}`            |`DELETE` |destroy a user specified by QR code|
-|`/api/users/{qrcode}/preference` |`GET`    |get user's preference|
-|`/api/users/{qrcode}/preference` |`PUT`    |update user's preference|[params](#put-preference)
-|`/api/users/{qrcode}/scores`     |`GET`    |get user's scores|[params](#get-score)
-|`/api/users/{qrcode}/scores`     |`POST`   |create user's score|[params](#postput-score)
-|`/api/users/scores/{id}`         |`GET`    |get a score specified by record id|
-|`/api/users/scores/{id}`         |`PUT`    |update a score specified by record id|[params](#postput-score)
-|`/api/users/scores/{id}`         |`DELETE` |destroy a score specified by record id|
-|`/api/musics`                    |`GET`    |get musics|
-|`/api/musics`                    |`POST`   |create a music|[params](#postput-music)
-|`/api/musics/{id}`               |`GET`    |get a music specified by music ID|
-|`/api/musics/{id}`               |`PUT`    |update a music specified by music ID|[params](#postput-music)
-|`/api/musics/{id}`               |`DELETE` |destroy a music specified by music ID|
-|`/api/musics/{id}/ranking`       |`GET`    |get all user's scores of specified music|[params](#get-ranking)
-|`/api/musics/played_times`       |`GET`    |get played times of each musics|
-|`/api/musics/{id}/played_times`  |`GET`    |get played times of specified music|
-|`/api/health_check`              |`GET`    |for checking server
+|`/api/users`                                 |`GET`    |get users||
+|`/api/users         `                        |`POST`   |create a user|[params](#postput-user)|
+|`/api/users/{qrcode}`                        |`GET`    |get a user specified by QR code|
+|`/api/users/{qrcode}`                        |`PUT`    |update a user specified by QR code|[params](#postput-user)
+|`/api/users/{qrcode}`                        |`DELETE` |destroy a user specified by QR code|
+|`/api/users/{qrcode}/{platform}/preference`  |`GET`    |get user's preference|
+|`/api/users/{qrcode}/{platform}/preference`  |`PUT`    |update user's preference|[params](#put-preference)
+|`/api/users/{qrcode}/{platform}/scores`      |`GET`    |get user's scores|[params](#get-score)
+|`/api/users/{qrcode}/{platform}/scores`      |`POST`   |create user's score|[params](#postput-score)
+|`/api/users/{qrcode}/{platform}/scores/{id}` |`GET`    |get a score specified by record id|
+|`/api/users/{qrcode}/{platform}/scores/{id}` |`PUT`    |update a score specified by record id|[params](#postput-score)
+|`/api/users/{qrcode}/{platform}/scores/{id}` |`DELETE` |destroy a score specified by record id|
+|`/api/musics`                                |`GET`    |get musics|
+|`/api/musics`                                |`POST`   |create a music|[params](#postput-music)
+|`/api/musics/{id}`                           |`GET`    |get a music specified by music ID|
+|`/api/musics/{id}`                           |`PUT`    |update a music specified by music ID|[params](#postput-music)
+|`/api/musics/{id}`                           |`DELETE` |destroy a music specified by music ID|
+|`/api/musics/{id}/{platform}/ranking`        |`GET`    |get all user's scores of specified music|[params](#get-ranking)
+|`/api/musics/{platform}/played_times`        |`GET`    |get played times of each musics|
+|`/api/musics/{id}/{platform}/played_times`   |`GET`    |get played times of specified music|
+|`/api/health_check`                          |`GET`    |for checking server
 
 
 ## Authorization
-See also: [Create Token](#create-token).  
+See also: [Create Token](#create-token).
 
 Header Format
 ```http

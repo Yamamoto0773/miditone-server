@@ -7,11 +7,21 @@ RSpec.describe 'Scores', type: :request do
   let!(:user2) { create(:user) }
   let!(:user3) { create(:user) }
   let!(:music) { create(:music) }
-  let!(:score1) { create(:score, user_id: user1.id, music_id: music.id, difficulty: :hard, points: 700_000) }
-  let!(:score2) { create(:score, user_id: user1.id, music_id: music.id, difficulty: :easy, points: 900_000) }
-  let!(:score3) { create(:score, user_id: user2.id, music_id: music.id, difficulty: :normal, points: 900_000) }
+  let!(:score1) {
+    create(:score, user_id: user1.id, music_id: music.id, difficulty: :hard, points: 700_000, platform: :button)
+  }
+  let!(:score2) {
+    create(:score, user_id: user1.id, music_id: music.id, difficulty: :easy, points: 900_000, platform: :button)
+  }
+  let!(:score3) {
+    create(:score, user_id: user2.id, music_id: music.id, difficulty: :normal, points: 900_000, platform: :button)
+  }
 
-  describe 'GET /api/musics/:music_id/ranking' do
+  let!(:board_score) {
+    create(:score, user_id: user2.id, music_id: music.id, difficulty: :normal, points: 900_000, platform: :board)
+  }
+
+  describe 'GET /api/musics/:music_id/button/ranking' do
     let(:music_id) { music.id }
 
     context 'pass parameter \'difficulty\'' do

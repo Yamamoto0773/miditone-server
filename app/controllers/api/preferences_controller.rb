@@ -3,16 +3,17 @@
 module Api
   class PreferencesController < BaseController
     before_action :set_user
+    before_action :set_preference
 
     def show
-      render json: PreferenceSerializer.new(@user.preference)
+      render json: PreferenceSerializer.new(@preference)
     end
 
     def update
-      if @user.preference.update(preference_params)
-        render json: PreferenceSerializer.new(@user.preference)
+      if @preference.update(preference_params)
+        render json: PreferenceSerializer.new(@preference)
       else
-        render_validation_errors @user.preference
+        render_validation_errors @preference
       end
     end
 
@@ -20,6 +21,10 @@ module Api
 
     def set_user
       @user = User.find_by!(qrcode: params[:user_qrcode])
+    end
+
+    def set_preference
+      @preference = @user.preferences.find_by!(platform: platform)
     end
 
     def preference_params
