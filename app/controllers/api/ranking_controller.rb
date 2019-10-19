@@ -13,7 +13,7 @@ module Api
                  get_platform_scores(parent: @music)
                end
 
-      scores = scores.order([points: :desc], :difficulty).includes(include_list)
+      scores = scores.order([points: :desc], :difficulty).includes(:user)
 
       render json: ScoreSerializer.new(scores, include: include_list)
     end

@@ -59,6 +59,8 @@ group :development, :test do
   gem 'rspec-request_describer'
   # rubocop
   gem 'rubocop-rails', '~> 2.3.2', require: false
+  # resolve N+1
+  gem 'bullet'
 end
 
 group :development do
