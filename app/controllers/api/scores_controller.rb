@@ -14,7 +14,7 @@ module Api
                  get_platform_scores(parent: @user)
                end
 
-      scores = scores.includes(include_list)
+      scores = scores.includes([:music])
 
       render json: ScoreSerializer.new(scores, include: include_list)
     end
@@ -77,7 +77,7 @@ module Api
     end
 
     def include_list
-      %i[music]
+      %i[music user]
     end
   end
 end
