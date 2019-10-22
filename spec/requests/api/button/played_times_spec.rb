@@ -11,29 +11,25 @@ RSpec.describe 'PlayedTimes', type: :request do
         :score,
         music_id: musics[0].id, user_id: users[0].id, difficulty: :easy, played_times: 5, platform: :button
       )
-      create(
-        :score,
-        music_id: musics[0].id, user_id: users[1].id, difficulty: :normal, platform: :button
-      )
-      create(
-        :score,
-        music_id: musics[0].id, user_id: users[2].id, difficulty: :hard, platform: :button
-      )
-      create(
-        :score,
-        music_id: musics[1].id, user_id: users[0].id, difficulty: :hard, platform: :button
-      )
-      create(
-        :score,
-        music_id: musics[2].id, user_id: users[1].id, difficulty: :hard, platform: :button
-      )
+      create(:score, music_id: musics[0].id, user_id: users[1].id, difficulty: :normal, platform: :button)
+      create(:score, music_id: musics[0].id, user_id: users[2].id, difficulty: :hard, platform: :button)
+      create(:score, music_id: musics[1].id, user_id: users[0].id, difficulty: :hard, platform: :button)
+      create(:score, music_id: musics[2].id, user_id: users[1].id, difficulty: :hard, platform: :button)
+
+      create(:score, music_id: musics[0].id, user_id: users[2].id, difficulty: :hard, platform: :board)
+      create(:score, music_id: musics[1].id, user_id: users[0].id, difficulty: :hard, platform: :board)
+      create(:score, music_id: musics[2].id, user_id: users[1].id, difficulty: :hard, platform: :board)
     end
 
     it 'return played times of three musics' do
       is_expected.to eq 200
-      expect(json[musics[0].id.to_s]).to eq 7
-      expect(json[musics[1].id.to_s]).to eq 1
-      expect(json[musics[2].id.to_s]).to eq 1
+      expect(json['data'].length).to eq 3
+      expect(json['data'][0]['attributes']['times']).to eq 7
+      expect(json['data'][1]['attributes']['times']).to eq 1
+      expect(json['data'][2]['attributes']['times']).to eq 1
+      expect(
+        json['data'].map { |v| v['attributes']['platform'] }
+      ).to all(eq 'button')
     end
   end
 
@@ -46,15 +42,17 @@ RSpec.describe 'PlayedTimes', type: :request do
       create(:score, music_id: music.id, user_id: users[2].id, difficulty: :hard, platform: :button)
       create(:score, music_id: music.id, user_id: users[0].id, difficulty: :hard, platform: :button)
       create(:score, music_id: music.id, user_id: users[1].id, difficulty: :hard, platform: :button)
+
+      create(:score, music_id: music.id, user_id: users[0].id, difficulty: :hard, platform: :board)
+      create(:score, music_id: music.id, user_id: users[1].id, difficulty: :hard, platform: :board)
+
     end
     let(:id) { music.id }
 
     it 'return played times of three difficulties' do
       is_expected.to eq 200
-      expect(json['total']).to eq 9
-      expect(json['easy']).to eq 5
-      expect(json['normal']).to eq 1
-      expect(json['hard']).to eq 3
+      expect(json['data']['attributes']['times']).to eq 9
+      expect(json['data']['attributes']['platform']).to eq 'button'
     end
   end
 end
