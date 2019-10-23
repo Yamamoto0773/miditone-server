@@ -56,7 +56,7 @@ RSpec.describe 'Scores', type: :request do
   end
 
 
-  describe 'PATCH /api/users/:user_qrcode/button/scores/new_record' do
+  describe 'PUT /api/users/:user_qrcode/button/scores/new_record' do
     let!(:music3) { create(:music) }
 
     context 'create record' do

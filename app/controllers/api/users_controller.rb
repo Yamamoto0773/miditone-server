@@ -5,7 +5,8 @@ module Api
     before_action :set_user, except: %i[index create]
 
     def index
-      @users = User.all
+      @users = paginate(User.order(created_at: :desc))
+
       render json: UserSerializer.new(@users)
     end
 

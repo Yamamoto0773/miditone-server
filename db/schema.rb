@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_users_on_created_at"
     t.index ["qrcode"], name: "index_users_on_qrcode", unique: true
   end
 
