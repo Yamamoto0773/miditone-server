@@ -34,5 +34,9 @@ module MiditoneServer
       g.integration_spec = false
       g.factory_bot = false
     end
+
+    # Timezone
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
   end
 end
