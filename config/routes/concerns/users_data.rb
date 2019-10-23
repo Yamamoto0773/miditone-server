@@ -5,7 +5,10 @@ class UsersData
 
   def call(mapper, options = {})
     mapper.resources :scores,
-      path: options[:path_prefix] + 'scores'
+      only: [:index, :show, :destroy],
+      path: options[:path_prefix] + 'scores' do
+      mapper.put :new_record, on: :collection
+    end
     mapper.resource :preference,
       only: [:update, :show],
       path: options[:path_prefix] + 'preference'

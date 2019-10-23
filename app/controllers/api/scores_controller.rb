@@ -4,8 +4,8 @@ module Api
   class ScoresController < BaseController
     include ScoresGettable
 
-    before_action :set_user, only: %i[index create]
-    before_action :set_score, except: %i[index create]
+    before_action :set_user, only: %i[index new_record]
+    before_action :set_score, except: %i[index new_record]
 
     def index
       scores = if given_difficulty_params?
@@ -23,20 +23,28 @@ module Api
       render json: ScoreSerializer.new(@score, include: include_list)
     end
 
-    def create
-      score = @user.scores.build(score_params.merge(played_times: 1, platform: platform))
+    # def create
+    #   score = @user.scores.build(score_params.merge(played_times: 1, platform: platform))
 
-      if score.save
-        render json: ScoreSerializer.new(score, include: include_list), status: :created
-      else
-        render_validation_errors score
-      end
-    end
+    #   if score.save
+    #     render json: ScoreSerializer.new(score, include: include_list), status: :created
+    #   else
+    #     render_validation_errors score
+    #   end
+    # end
 
-    def update
-      Scores::UpdateService.new(score: @score, params: score_params).execute!
+    # def update
+    #   if score.update(score_params)
+    #     render json: ScoreSerializer.new(score, include: include_list), status: :created
+    #   else
+    #     render_validation_errors score
+    #   end
+    # end
 
-      render json: ScoreSerializer.new(@score, include: include_list)
+    def new_record
+      score = Scores::NewRecordService.new(user: @user, params: score_params, platform: platform).execute!
+
+      render json: ScoreSerializer.new(score, include: include_list)
     rescue ActiveRecord::RecordInvalid => e
       render_validation_errors e.record
     end

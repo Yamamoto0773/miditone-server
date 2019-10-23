@@ -55,65 +55,82 @@ RSpec.describe 'Scores', type: :request do
     end
   end
 
-  describe 'POST /api/users/:user_qrcode/board/scores' do
-    let(:params) do
-      {
-        score: {
-          music_id: music2.id,
-          difficulty: :normal,
-          points: 700_000,
-          max_combo: 200,
-          critical_count: 300,
-          correct_count: 50,
-          nice_count: 10,
-          miss_count: 1
-        }
-      }
-    end
+  describe 'PATCH /api/users/:user_qrcode/board/scores/new_record' do
+    let!(:music3) { create(:music) }
 
-    it 'create a score' do
-      is_expected.to eq 201
-      expect(json['data']['attributes']['played_times']).to eq 1
-    end
-  end
-
-  describe 'PUT /api/users/:user_qrcode/board/scores/:id' do
-    context 'update score' do
-      let(:id) { score1.id }
+    context 'create record' do
       let(:params) do
         {
           score: {
+            music_id: music3.id,
+            difficulty: 'hard',
             points: 800_000,
             max_combo: 300,
             critical_count: 350,
             correct_count: 10,
             nice_count: 5,
-            miss_count: 1
+            miss_count: 1,
           }
         }
       end
 
-      it 'update a score' do
+      it 'should be created score as new' do
         is_expected.to eq 200
-        expect(json['data']['attributes']['points']).to eq 800_000
-        expect(json['data']['attributes']['played_times']).to eq 2
+        expect(json['data']['attributes']['played_times']).to eq 1
+        expect(json['data']['attributes']['platform']).to eq 'board'
+        expect(
+          json['data']['attributes'].slice(*params[:score].keys)
+        ).to eq params[:score].stringify_keys
       end
     end
 
-    context 'dont update score' do
-      let(:id) { score1.id }
+    context 'update record' do
       let(:params) do
         {
           score: {
-            points: 400_000
+            music_id: music2.id,
+            difficulty: 'hard',
+            points: 800_000,
+            max_combo: 300,
+            critical_count: 350,
+            correct_count: 10,
+            nice_count: 5,
+            miss_count: 1,
           }
         }
       end
 
-      it 'update a score' do
+      it 'should be updated score' do
         is_expected.to eq 200
-        expect(json['data']['attributes']['points']).to eq 600_000
         expect(json['data']['attributes']['played_times']).to eq 2
+        expect(json['data']['attributes']['platform']).to eq 'board'
+        expect(
+          json['data']['attributes'].slice(*params[:score].keys)
+        ).to eq params[:score].stringify_keys
+      end
+    end
+
+    context 'dont update record' do
+      let(:params) do
+        {
+          score: {
+            music_id: music2.id,
+            difficulty: 'hard',
+            points: 400_000,
+            max_combo: 300,
+            critical_count: 350,
+            correct_count: 10,
+            nice_count: 5,
+            miss_count: 1,
+          }
+        }
+      end
+
+      it 'should not be updated score but incremented play times' do
+        is_expected.to eq 200
+        expect(json['data']['attributes']['played_times']).to eq 2
+        expect(json['data']['attributes']['platform']).to eq 'board'
+        expect(json['data']['attributes']['points']).to eq 600_000
       end
     end
   end
