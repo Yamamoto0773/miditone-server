@@ -7,7 +7,9 @@ module Api
     before_action :set_music, only: :of_music
 
     def of_all_musics
-      render json: PlayedTimesSerializer.new(Music.order(:id), params: { platform: platform })
+      musics = paginate(Music.order(:id))
+
+      render json: PlayedTimesSerializer.new(musics, params: { platform: platform })
     end
 
     def of_music

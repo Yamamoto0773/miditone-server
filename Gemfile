@@ -48,6 +48,9 @@ gem 'diff-lcs', '~> 1.3'
 gem 'rqrcode'
 # Use Pry as rails console
 gem 'pry-rails', '~> 0.3'
+# Pagination
+gem 'pagy'
+gem 'api-pagination'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

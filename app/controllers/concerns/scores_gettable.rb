@@ -5,9 +5,9 @@ module ScoresGettable
 
   def get_platform_scores(parent:)
     if platform
-      parent.scores.with_platform(platform)
+      paginate(parent.scores.with_platform(platform))
     else
-      parent.scores
+      paginate(parent.scores)
     end
   end
 end

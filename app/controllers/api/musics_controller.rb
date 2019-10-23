@@ -5,7 +5,7 @@ module Api
     before_action :set_music, except: %i[index create]
 
     def index
-      @music = Music.all
+      @music = paginate(Music.all)
       render json: MusicSerializer.new(@music)
     end
 

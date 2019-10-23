@@ -6,3 +6,4 @@ create_table :users, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=ut
 end
 
 add_index :users, :qrcode, unique: true
+add_index :users, :created_at
