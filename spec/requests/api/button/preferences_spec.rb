@@ -5,16 +5,16 @@ require 'rails_helper'
 RSpec.describe 'Preferences', type: :request do
   let!(:user) { create(:user) }
 
-  describe 'GET /api/users/:user_qrcode/board/preference' do
+  describe 'GET /api/users/:user_qrcode/button/preference' do
     let(:user_qrcode) { user.qrcode }
 
-    it 'return user\'s board preference' do
+    it 'return user\'s button preference' do
       is_expected.to eq 200
-      expect(json['data']['attributes']['platform']).to eq 'board'
+      expect(json['data']['attributes']['platform']).to eq 'button'
     end
   end
 
-  describe 'PUT /api/users/:user_qrcode/board/preference' do
+  describe 'PUT /api/users/:user_qrcode/button/preference' do
     let(:user_qrcode) { user.qrcode }
     let(:params) do
       {
