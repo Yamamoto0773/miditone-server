@@ -1,0 +1,36 @@
+version: 2.1
+
+executors:
+  ubuntu:
+    docker:
+      - image: ubuntu-1604:201903-01
+
+jobs:
+  build:
+    executor: ubuntu
+    steps:
+      - checkout
+      - run: source env.sh
+      - run: build
+      - run: rake db:create ridgepole:apply
+
+  rubocop:
+    executor: ubuntu
+    steps:
+      - run: rubocop
+
+  rspec:
+    executor: ubuntu
+    steps:
+      - run: rspec
+      
+workflows:
+  pull-request:
+    jobs:
+      - build
+      - rubocop
+          requires:
+            - build
+      - rspec
+          requires:
+            - rubocop
