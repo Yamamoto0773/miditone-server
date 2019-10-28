@@ -20,8 +20,8 @@ workflows:
     jobs:
       - build
       - rubocop
-          requires:
-            - build
+        requires:
+          - build
       - rspec
-          requires:
-            - rubocop
+        requires:
+          - rubocop
