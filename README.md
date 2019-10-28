@@ -507,4 +507,4 @@ same as GET Score
 ## License
 **MIT License**
 
-Please read [license file](#LICENSE) before use this application.
+Please read [license file](LICENSE) before use this application.
