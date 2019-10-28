@@ -12,6 +12,7 @@ Ranking server for miditone#, Koreisai2019 5J Project.
 - [API Routes](#api-routes)
 - [Authorization](#authorization)
 - [Request Parameters](#request-parameters)
+- [License](#license)
 
 
 ## Using
@@ -502,3 +503,8 @@ same as GET Score
   ]
 }
 ```
+
+## License
+**MIT License**
+
+Please read [license file](LICENSE) before use this application.
