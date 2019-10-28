@@ -19,9 +19,9 @@ workflows:
   pull-request:
     jobs:
       - build
-      - rubocop
-        requires:
-          - build
-      - rspec
-        requires:
-          - rubocop
+      - rubocop:
+          requires:
+            - build
+      - rspec:
+          requires:
+            - rubocop
