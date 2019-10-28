@@ -5,32 +5,52 @@ executors:
     docker:
       - image: ubuntu-1604:201903-01
 
+commands:
+  restore_gem:
+    steps:
+      - restore_cache:
+          key: bundle-{{ checksum "Gemfile.lock" }}
+
+  save_gem:
+    steps:
+      - save_cache:
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+          paths:
+            - ./vendor/bundle
+
 jobs:
-  build:
+  setup:
     executor: ubuntu
     steps:
-      - checkout
       - run: source env.sh
       - run: build
       - run: rake db:create ridgepole:apply
+      - save_gem
 
   rubocop:
     executor: ubuntu
     steps:
+      - checkout
+      - restore_gem
       - run: rubocop
+      - save_gem
 
   rspec:
     executor: ubuntu
     steps:
+      - checkout
+      - restore_gem
       - run: rspec
-      
+      - save_gem
+
 workflows:
+  version: 2.1
   pull-request:
     jobs:
-      - build
-      - rubocop
+      - setup
+      - rubocop:
           requires:
-            - build
-      - rspec
+            - setup
+      - rspec:
           requires:
-            - rubocop
+            - setup
