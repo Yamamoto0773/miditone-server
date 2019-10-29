@@ -34,6 +34,9 @@ jobs:
           name: docker-compose build
           command: docker-compose build
       - run:
+         name: 'wait for db'
+         command: dockerize -wait tcp://localhost:3306 -timeout 1m
+      - run:
           name: database create & apply
           command: docker-compose run app bundle exec rake db:create ridgepole:apply
       - save_gem
