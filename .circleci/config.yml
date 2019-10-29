@@ -34,6 +34,9 @@ jobs:
           name: docker-compose build
           command: docker-compose build
       - run:
+          name: docker-compose up
+          command: docker-compose up -d
+      - run:
           name: Setup dockerize
           command: bash .circleci/setup-dockerize.sh
       - run:
