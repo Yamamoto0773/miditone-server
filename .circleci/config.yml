@@ -30,7 +30,7 @@ jobs:
           command: source env.sh
       - run:
           name: docker-compose build
-          command: build
+          command: docker-compose build
       - run:
           name: database create & apply
           command: rake db:create ridgepole:apply
