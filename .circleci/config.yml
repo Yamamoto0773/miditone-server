@@ -34,15 +34,12 @@ jobs:
           name: source env.sh
           command: source env.sh
       - run:
-          name: docker-compose build
-          command: docker-compose build
+          name: build
+          command: build
       - run:
           name: database create & apply
-          command: docker-compose run app bundle exec rake
+          command: rake db:create ridgepole:apply
       - save_gem
-      - run:
-          name: docker compose down
-          command: docker-compose down
 
   rubocop:
     executor: ubuntu
@@ -51,7 +48,7 @@ jobs:
       - restore_gem
       - run:
           name: rubocop
-          command: docker-compose run app bundle exec rubocop
+          command: rubocop
       - save_gem
 
   rspec:
@@ -61,7 +58,7 @@ jobs:
       - restore_gem
       - run:
           name: rspec
-          command: docker-compose run app bundle exec rspec
+          command: rspec
       - save_gem
 
 workflows:
