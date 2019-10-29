@@ -3,7 +3,8 @@ version: 2.1
 executors:
   ubuntu:
     docker:
-      - image: ubuntu-1604:201903-01
+      # circleci/ruby 2.6.4
+      - image: circleci/ruby@sha256:770e381defc5e4a0ba5df52265a96494b9f5d94309234cb3f7bc6b00e1d18f9a
 
 commands:
   restore_gem:
