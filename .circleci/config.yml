@@ -4,7 +4,7 @@ executors:
   ubuntu:
     docker:
       # circleci/ruby 2.6.4
-      - image: circleci/ruby@sha256:770e381defc5e4a0ba5df52265a96494b9f5d94309234cb3f7bc6b00e1d18f9a
+      - image: circleci/ruby@sha256:48bb0a15cf3a71ce9ba5e97af7afe816f0e5f09a55b33442c25beea3567c76e3
 
 commands:
   restore_gem:
