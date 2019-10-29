@@ -31,14 +31,11 @@ jobs:
             chmod +x ~/docker-compose
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - run:
-          name: source env.sh
-          command: source env.sh
-      - run:
-          name: build
-          command: build
+          name: docker-compose build
+          command: docker-compose build
       - run:
           name: database create & apply
-          command: rake db:create ridgepole:apply
+          command: docker-compose run app bundle exec rake db:create ridgepole:apply
       - save_gem
 
   rubocop:
@@ -48,7 +45,7 @@ jobs:
       - restore_gem
       - run:
           name: rubocop
-          command: rubocop
+          command: docker-compose run app bundle exec rubocop
       - save_gem
 
   rspec:
@@ -58,7 +55,7 @@ jobs:
       - restore_gem
       - run:
           name: rspec
-          command: rspec
+          command: docker-compose run app bundle exec rspec
       - save_gem
 
 workflows:
