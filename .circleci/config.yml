@@ -33,7 +33,7 @@ jobs:
           command: docker-compose build
       - run:
           name: database create & apply
-          command: rake db:create ridgepole:apply
+          command: docker-compose run app bundle exec rake
       - save_gem
       - run:
           name: docker compose down
@@ -44,7 +44,9 @@ jobs:
     steps:
       - checkout
       - restore_gem
-      - run: rubocop
+      - run:
+          name: rubocop
+          command: docker-compose run app bundle exec rubocop
       - save_gem
 
   rspec:
@@ -52,7 +54,9 @@ jobs:
     steps:
       - checkout
       - restore_gem
-      - run: rspec
+      - run:
+          name: rspec
+          command: docker-compose run app bundle exec rspec
       - save_gem
 
 workflows:
