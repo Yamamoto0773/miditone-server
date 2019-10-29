@@ -23,6 +23,7 @@ jobs:
   setup:
     executor: ubuntu
     steps:
+      - checkout
       - run: source env.sh
       - run: build
       - run: rake db:create ridgepole:apply
