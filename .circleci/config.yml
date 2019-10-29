@@ -2,9 +2,9 @@ version: 2.1
 
 executors:
   ubuntu:
-    docker:
-      # circleci/ruby 2.6.4
-      - image: circleci/ruby@sha256:48bb0a15cf3a71ce9ba5e97af7afe816f0e5f09a55b33442c25beea3567c76e3
+    machine:
+      image: circleci/classic:edge
+    working_directory: ~/miditone-server
 
 commands:
   restore_gem:
@@ -24,7 +24,12 @@ jobs:
     executor: ubuntu
     steps:
       - checkout
-      - setup_remote_docker
+      - run:
+          name: Install Docker Compose
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - run:
           name: source env.sh
           command: source env.sh
