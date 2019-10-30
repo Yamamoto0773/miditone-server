@@ -21,7 +21,7 @@ commands:
             - ./vendor/bundle
 
 jobs:
-  setup:
+  build:
     executor: ubuntu
     steps:
       - checkout
@@ -37,24 +37,24 @@ jobs:
       - run:
           name: docker-compose build
           command: docker-compose build --no-cache
-      - run:
-          name: docker-compose up
-          command: docker-compose up -d
-      - run:
-          name: docker-compose down
-          command: docker-compose down
-      - run:
-          name: docker-compose up
-          command: docker-compose up -d
-      - run:
-          name: wait for launching db
-          command: sleep 20
+      # - run:
+      #     name: docker-compose up
+      #     command: docker-compose up -d
+      # - run:
+      #     name: docker-compose down
+      #     command: docker-compose down
+      # - run:
+      #     name: docker-compose up
+      #     command: docker-compose up -d
+      # - run:
+      #     name: wait for launching db
+      #     command: sleep 20
       - run:
           name: db:create
-          command: docker-compose run app bundle exec rake db:create ridgepole:apply
-      - run:
-          name: rspec
-          command: docker-compose run -e RAILS_ENV=test app bundle exec rspec
+          command: docker-compose run --rm app bundle exec rake db:create ridgepole:apply
+      # - run:
+      #     name: rspec
+      #     command: docker-compose run --rm RAILS_ENV=test app bundle exec rspec
 
   rubocop:
     executor: ubuntu
@@ -63,14 +63,27 @@ jobs:
       - restore_gem
       - run:
           name: rubocop
-          command: docker-compose run app bundle exec rubocop
+          command: docker-compose run --rm app bundle exec rubocop
+      - save_gem
+
+  rspec:
+    executor: ubuntu
+    steps:
+      - checkout
+      - restore_gem
+      - run:
+          name: rspec
+          command: docker-compose run --rm app bundle exec rspec
       - save_gem
 
 workflows:
   version: 2.1
   pull-request:
     jobs:
-      - setup
+      - build
+      - rspec:
+          requires:
+            - build
       - rubocop:
           requires:
-            - setup
+            - build
