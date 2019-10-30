@@ -21,7 +21,7 @@ commands:
             - ./vendor/bundle
 
 jobs:
-  build:
+  build_test:
     executor: ubuntu
     steps:
       - checkout
@@ -37,53 +37,30 @@ jobs:
       - run:
           name: docker-compose build
           command: docker-compose build --no-cache
-      # - run:
-      #     name: docker-compose up
-      #     command: docker-compose up -d
-      # - run:
-      #     name: docker-compose down
-      #     command: docker-compose down
-      # - run:
-      #     name: docker-compose up
-      #     command: docker-compose up -d
-      # - run:
-      #     name: wait for launching db
-      #     command: sleep 20
+      - run:
+          name: docker-compose up
+          command: docker-compose up -d
+      - run:
+          name: docker-compose down
+          command: docker-compose down
+      - run:
+          name: docker-compose up
+          command: docker-compose up -d
+      - run:
+          name: wait for launching db
+          command: sleep 20
       - run:
           name: db:create
           command: docker-compose run --rm app -e RAILS_ENV=test bundle exec rake db:create ridgepole:apply
-      # - run:
-      #     name: rspec
-      #     command: docker-compose run --rm RAILS_ENV=test app bundle exec rspec
-
-  rubocop:
-    executor: ubuntu
-    steps:
-      - checkout
-      - restore_gem
       - run:
           name: rubocop
-          command: docker-compose run --rm app bundle exec rubocop
-      - save_gem
-
-  rspec:
-    executor: ubuntu
-    steps:
-      - checkout
-      - restore_gem
+          command: docker-compose run --rm app -e RAILS_ENV=test bundle exec rubocop
       - run:
           name: rspec
-          command: docker-compose run --rm app bundle exec rspec
-      - save_gem
+          command: docker-compose run --rm RAILS_ENV=test app bundle exec rspec
 
 workflows:
   version: 2.1
   pull-request:
     jobs:
-      - build
-      - rspec:
-          requires:
-            - build
-      - rubocop:
-          requires:
-            - build
+      - build_test
