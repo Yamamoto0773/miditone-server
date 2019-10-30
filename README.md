@@ -1,4 +1,8 @@
 # miditone-server
+[![CircleCI](https://circleci.com/gh/Yamamoto0773/miditone-server/tree/master.svg?style=shield)](https://circleci.com/gh/Yamamoto0773/miditone-server/tree/master)
+[![GitHub issues](https://img.shields.io/github/issues/Yamamoto0773/miditone-server)](https://github.com/Yamamoto0773/miditone-server/issues)
+[![GitHub license](https://img.shields.io/github/license/Yamamoto0773/miditone-server)](https://github.com/Yamamoto0773/miditone-server/blob/master/LICENSE)
+
 Ranking server for miditone#, Koreisai2019 5J Project.
 
 ## Index
