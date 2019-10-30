@@ -38,7 +38,7 @@ jobs:
           command: sleep 20
       - run:
           name: create db
-          command: docker-compose run --rm -e RAILS_ENV=test app bundle exec rake db:create ridgepole:apply
+          command: docker-compose run --rm app bundle exec rake db:create ridgepole:apply
       - run:
           name: rubocop
           command: docker-compose run --rm -e RAILS_ENV=test app bundle exec rubocop
