@@ -51,7 +51,7 @@ jobs:
       #     command: sleep 20
       - run:
           name: db:create
-          command: docker-compose run --rm app bundle exec rake db:create ridgepole:apply
+          command: docker-compose run --rm app -e RAILS_ENV=test bundle exec rake db:create ridgepole:apply
       # - run:
       #     name: rspec
       #     command: docker-compose run --rm RAILS_ENV=test app bundle exec rspec
