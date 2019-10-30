@@ -70,7 +70,7 @@ jobs:
       - restore_gem
       - run:
           name: rspec
-          command: docker-compose run app bundle exec rspec
+          command: docker-compose run -e RAILS_ENV=test app bundle exec rspec
       - save_gem
 
 workflows:
