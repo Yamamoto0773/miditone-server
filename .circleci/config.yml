@@ -69,6 +69,9 @@ jobs:
       - checkout
       - restore_gem
       - run:
+          name: db:create
+          command: docker-compose run -e RAILS_ENV=test app bundle exec rake db:create ridgepole:apply
+      - run:
           name: rspec
           command: docker-compose run -e RAILS_ENV=test app bundle exec rspec
       - save_gem
