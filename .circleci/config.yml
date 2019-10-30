@@ -5,6 +5,7 @@ executors:
     machine:
       image: circleci/classic:edge
     working_directory: ~/miditone-server
+    shell: /bin/bash -eo pipefail
 
 commands:
   restore_gem:
@@ -31,22 +32,14 @@ jobs:
             chmod +x ~/docker-compose
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - run:
+          name: Setup dockerize
+          command: bash .circleci/setup-dockerize.sh
+      - run:
           name: docker-compose build
           command: |
             source env.sh
             build
-      - run:
-          name: Setup dockerize
-          command: bash .circleci/setup-dockerize.sh
-      - run:
-         name: wait db
-         command: dockerize -wait tcp://localhost:3306 -timeout 1m
-      - run:
-          name: database create & apply
-          command: |
-            source env.sh
             rake db:create ridgepole:apply
-      - save_gem
 
   rubocop:
     executor: ubuntu
