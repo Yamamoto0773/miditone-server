@@ -7,19 +7,6 @@ executors:
     working_directory: ~/miditone-server
     shell: /bin/bash -eo pipefail
 
-commands:
-  restore_gem:
-    steps:
-      - restore_cache:
-          key: bundle-{{ checksum "Gemfile.lock" }}
-
-  save_gem:
-    steps:
-      - save_cache:
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-          paths:
-            - ./vendor/bundle
-
 jobs:
   build_test:
     executor: ubuntu
@@ -50,7 +37,7 @@ jobs:
           name: wait for launching db
           command: sleep 20
       - run:
-          name: db:create
+          name: create db
           command: docker-compose run --rm -e RAILS_ENV=test app bundle exec rake db:create ridgepole:apply
       - run:
           name: rubocop
