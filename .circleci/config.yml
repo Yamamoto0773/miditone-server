@@ -38,6 +38,9 @@ jobs:
           name: docker-compose build
           command: docker-compose build --no-cache
       - run:
+          name: docker-compose up
+          command: docker-compose up
+      - run:
           name: wait for launching db
           command: sleep 30
       - run:
