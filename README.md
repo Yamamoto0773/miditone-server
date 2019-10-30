@@ -3,7 +3,19 @@
 [![GitHub issues](https://img.shields.io/github/issues/Yamamoto0773/miditone-server)](https://github.com/Yamamoto0773/miditone-server/issues)
 [![GitHub license](https://img.shields.io/github/license/Yamamoto0773/miditone-server)](https://github.com/Yamamoto0773/miditone-server/blob/master/LICENSE)
 
-Ranking server for miditone#, Koreisai2019 5J Project.
+Game server for miditone#, Koreisai2019 5J Project.   
+JSON API with Rails 6.0
+
+## Related Repositories
+Koreisai2019 5J Project, miditone#, constructed by follwing repositories.
+- Main Game   
+  [miditone](https://github.com/shirry0129/miditone)
+- Game Server  
+  [miditone-server(here)](https://github.com/Yamamoto0773/miditone-server)
+- C++ HTTP Client for miditone-server  
+  [miditone-client](https://github.com/Yamamoto0773/miditone-client)
+- Handle Wii Balance Board as input device  
+  [balanceboard-controller](https://github.com/Yamamoto0773/balanceboard-controller)
 
 ## Index
 
