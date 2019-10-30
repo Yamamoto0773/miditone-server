@@ -51,13 +51,13 @@ jobs:
           command: sleep 20
       - run:
           name: db:create
-          command: docker-compose run --rm app -e RAILS_ENV=test bundle exec rake db:create ridgepole:apply
+          command: docker-compose run --rm -e RAILS_ENV=test app bundle exec rake db:create ridgepole:apply
       - run:
           name: rubocop
-          command: docker-compose run --rm app -e RAILS_ENV=test bundle exec rubocop
+          command: docker-compose run --rm -e RAILS_ENV=test app bundle exec rubocop
       - run:
           name: rspec
-          command: docker-compose run --rm RAILS_ENV=test app bundle exec rspec
+          command: docker-compose run --rm -e RAILS_ENV=test app bundle exec rspec
 
 workflows:
   version: 2.1
