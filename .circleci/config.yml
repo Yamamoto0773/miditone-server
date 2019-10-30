@@ -32,10 +32,9 @@ jobs:
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - run:
           name: docker-compose build
-          command: docker-compose build
-      - run:
-          name: docker-compose up
-          command: docker-compose up -d
+          command: |
+            source env.sh
+            build
       - run:
           name: Setup dockerize
           command: bash .circleci/setup-dockerize.sh
@@ -44,7 +43,9 @@ jobs:
          command: dockerize -wait tcp://localhost:3306 -timeout 1m
       - run:
           name: database create & apply
-          command: docker-compose run app bundle exec rake db:create ridgepole:apply
+          command: |
+            source env.sh
+            rake db:create ridgepole:apply
       - save_gem
 
   rubocop:
