@@ -36,10 +36,13 @@ jobs:
           command: bash .circleci/setup-dockerize.sh
       - run:
           name: docker-compose build
-          command: |
-            source env.sh
-            build
-            rake db:create ridgepole:apply
+          command: docker-compose build --no-cache
+      - run:
+          name: wait for launching db
+          command: sleep 10
+      - run:
+          name: db:create
+          command: docker-compose run app bundle exec rake db:create ridgepole:apply
 
   rubocop:
     executor: ubuntu
