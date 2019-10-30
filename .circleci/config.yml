@@ -39,8 +39,7 @@ jobs:
           command: docker-compose build --no-cache
       - run:
           name: docker-compose up
-          command: docker-compose up
-          no_output_timeout: 40s
+          command: docker-compose up -d
       - run:
           name: docker-compose down
           command: docker-compose down
