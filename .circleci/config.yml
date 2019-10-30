@@ -40,6 +40,7 @@ jobs:
       - run:
           name: docker-compose up
           command: docker-compose up
+          no_output_timeout: 40s
       - run:
           name: docker-compose down
           command: docker-compose down
