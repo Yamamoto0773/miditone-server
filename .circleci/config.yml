@@ -47,6 +47,9 @@ jobs:
           name: docker-compose up
           command: docker-compose up -d
       - run:
+          name: wait for launching db
+          command: sleep 60
+      - run:
           name: db:create
           command: docker-compose run app bundle exec rake db:create ridgepole:apply
 
