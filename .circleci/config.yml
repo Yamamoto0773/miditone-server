@@ -69,6 +69,9 @@ jobs:
       - checkout
       - restore_gem
       - run:
+          name: docker-compose build
+          command: docker-compose build --no-cache
+      - run:
           name: db:create
           command: docker-compose run -e RAILS_ENV=test app bundle exec rake db:create ridgepole:apply
       - run:
