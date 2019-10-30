@@ -52,6 +52,9 @@ jobs:
       - run:
           name: db:create
           command: docker-compose run app bundle exec rake db:create ridgepole:apply
+      - run:
+          name: rspec
+          command: docker-compose run -e RAILS_ENV=test app bundle exec rspec
 
   rubocop:
     executor: ubuntu
@@ -63,30 +66,11 @@ jobs:
           command: docker-compose run app bundle exec rubocop
       - save_gem
 
-  rspec:
-    executor: ubuntu
-    steps:
-      - checkout
-      - restore_gem
-      - run:
-          name: docker-compose build
-          command: docker-compose build --no-cache
-      - run:
-          name: db:create
-          command: docker-compose run -e RAILS_ENV=test app bundle exec rake db:create ridgepole:apply
-      - run:
-          name: rspec
-          command: docker-compose run -e RAILS_ENV=test app bundle exec rspec
-      - save_gem
-
 workflows:
   version: 2.1
   pull-request:
     jobs:
       - setup
       - rubocop:
-          requires:
-            - setup
-      - rspec:
           requires:
             - setup
