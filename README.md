@@ -14,7 +14,7 @@ Koreisai2019 5J Project, miditone#, constructed by follwing repositories.
   [miditone-server(here)](https://github.com/Yamamoto0773/miditone-server)
 - C++ HTTP Client for miditone-server  
   [miditone-client](https://github.com/Yamamoto0773/miditone-client)
-- Handle Wii Balance Board as input device  
+- Use Wii Balance Board as input device  
   [balanceboard-controller](https://github.com/Yamamoto0773/balanceboard-controller)
 
 ## Index
