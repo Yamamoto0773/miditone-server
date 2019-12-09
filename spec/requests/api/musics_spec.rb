@@ -3,13 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe 'Musics', type: :request do
-  let!(:music1) { create(:music) }
-  let!(:music2) { create(:music) }
+  let!(:music1) { create(:music, id: 2) }
+  let!(:music2) { create(:music, id: 1) }
 
   describe 'GET /api/musics' do
     it 'return two musics' do
       is_expected.to eq 200
       expect(json['data'].length).to eq 2
+      expect(
+        json['data'].map { |h| h['id'].to_i }
+      ).to eq [1, 2]
     end
   end
 
