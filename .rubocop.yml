@@ -4,7 +4,7 @@ AllCops:
   Exclude:
     - Gemfile
     - db/schema.rb
-    - vendor/*
+    - vendor/**/*
     - public/*
     - tmp/*
     - log/*
@@ -60,6 +60,8 @@ Naming/FileName:
 Layout/EmptyLines:
   Enabled: false
 Layout/AlignParameters:
+  Enabled: false
+Layout/AlignHash:
   Enabled: false
 Layout/IndentFirstArrayElement:
   EnforcedStyle: consistent
