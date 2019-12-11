@@ -7,7 +7,15 @@ RSpec.describe 'Scores', type: :request do
   let!(:music1) { create(:music) }
   let!(:music2) { create(:music) }
   let!(:score1) {
-    create(:score, user_id: user.id, music_id: music2.id, difficulty: :hard, points: 600_000, platform: :board)
+    create(
+      :score,
+      user_id: user.id,
+      music_id: music2.id,
+      difficulty: :hard,
+      points: 600_000,
+      max_combo: 50,
+      platform: :board,
+    )
   }
   let!(:score2) {
     create(:score, user_id: user.id, music_id: music1.id, difficulty: :easy, platform: :board)
@@ -84,14 +92,14 @@ RSpec.describe 'Scores', type: :request do
       end
     end
 
-    context 'update record' do
+    context 'update points' do
       let(:params) do
         {
           score: {
             music_id: music2.id,
             difficulty: 'hard',
             points: 800_000,
-            max_combo: 300,
+            max_combo: 40,
             critical_count: 350,
             correct_count: 10,
             nice_count: 5,
@@ -105,8 +113,41 @@ RSpec.describe 'Scores', type: :request do
         expect(json['data']['attributes']['played_times']).to eq 2
         expect(json['data']['attributes']['platform']).to eq 'board'
         expect(
-          json['data']['attributes'].slice(*params[:score].keys)
-        ).to eq params[:score].stringify_keys
+          json['data']['attributes'].slice(*params[:score].except(:max_combo).keys)
+        ).to eq params[:score].except(:max_combo).stringify_keys
+        expect(
+          json['data']['attributes']['max_combo']
+        ).to eq 50
+      end
+    end
+
+    context 'update max combo' do
+      let(:params) do
+        {
+          score: {
+            music_id: music2.id,
+            difficulty: 'hard',
+            points: 300_000,
+            max_combo: 100,
+            critical_count: 350,
+            correct_count: 10,
+            nice_count: 5,
+            miss_count: 1,
+          }
+        }
+      end
+
+      it 'should be max combo' do
+        expect {
+          is_expected.to eq 200
+        }.not_to(change {
+          score1.attributes.except(:max_combo)
+        })
+        expect(json['data']['attributes']['played_times']).to eq 2
+        expect(json['data']['attributes']['platform']).to eq 'board'
+        expect(
+          json['data']['attributes']['max_combo']
+        ).to eq 100
       end
     end
 
@@ -117,7 +158,7 @@ RSpec.describe 'Scores', type: :request do
             music_id: music2.id,
             difficulty: 'hard',
             points: 400_000,
-            max_combo: 300,
+            max_combo: 10,
             critical_count: 350,
             correct_count: 10,
             nice_count: 5,
@@ -131,6 +172,7 @@ RSpec.describe 'Scores', type: :request do
         expect(json['data']['attributes']['played_times']).to eq 2
         expect(json['data']['attributes']['platform']).to eq 'board'
         expect(json['data']['attributes']['points']).to eq 600_000
+        expect(json['data']['attributes']['max_combo']).to eq 50
       end
     end
   end

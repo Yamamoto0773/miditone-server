@@ -19,7 +19,9 @@ module Scores
       ActiveRecord::Base.transaction do
         if score
           score.played_times += 1
-          score.attributes = @params if @params.key?(:points) && @params[:points].to_i > score.points
+
+          score.attributes = @params.except(:max_combo) if @params[:points].to_i > score.points
+          score.max_combo = @params[:max_combo] if @params[:max_combo].to_i > score.max_combo
         else
           score = @user.scores.build(@params.merge(played_times: 1, platform: @platform))
         end
