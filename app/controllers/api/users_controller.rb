@@ -6,6 +6,7 @@ module Api
 
     def index
       @users = paginate(User.order(created_at: :desc))
+      @users = @users.includes(:preferences)
 
       render json: UserSerializer.new(@users)
     end
