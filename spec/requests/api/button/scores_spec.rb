@@ -7,7 +7,15 @@ RSpec.describe 'Scores', type: :request do
   let!(:music1) { create(:music) }
   let!(:music2) { create(:music) }
   let!(:score1) {
-    create(:score, user_id: user.id, music_id: music2.id, difficulty: :hard, points: 600_000, max_combo: 50, platform: :button)
+    create(
+      :score,
+      user_id: user.id,
+      music_id: music2.id,
+      difficulty: :hard,
+      points: 600_000,
+      max_combo: 50,
+      platform: :button,
+    )
   }
   let!(:score2) {
     create(:score, user_id: user.id, music_id: music1.id, difficulty: :easy, platform: :button)
@@ -133,9 +141,9 @@ RSpec.describe 'Scores', type: :request do
       it 'should be max combo' do
         expect {
           is_expected.to eq 200
-        }.not_to change {
+        }.not_to(change {
           score1.attributes.except(:max_combo)
-        }
+        })
         expect(json['data']['attributes']['played_times']).to eq 2
         expect(json['data']['attributes']['platform']).to eq 'button'
         expect(
