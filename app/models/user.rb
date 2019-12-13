@@ -14,4 +14,7 @@ class User < ApplicationRecord
     # only typeable characters by keyboard, except space and \n
     format: { with: %r{\A[\w`~!@#$%^&\*\(\)-=\+\[\]\{\}\\|;:'",<\.>\/\?]+\z} },
     length: { maximum: 10 }
+  validates :button_total_score, :board_total_score,
+    presence: true,
+    numericality: { greater_than_or_equal_to: 0 }
 end
