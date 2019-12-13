@@ -16,6 +16,9 @@ RSpec.describe 'Scores', type: :request do
   let!(:score3) {
     create(:score, user_id: user2.id, music_id: music.id, difficulty: :normal, points: 900_000, platform: :board)
   }
+  let!(:score4) {
+    create(:score, user_id: user3.id, music_id: music.id, difficulty: :normal, points: 900_000, platform: :board)
+  }
   let!(:button_score) {
     create(:score, user_id: user2.id, music_id: music.id, difficulty: :normal, points: 900_000, platform: :button)
   }
@@ -26,24 +29,26 @@ RSpec.describe 'Scores', type: :request do
     context 'pass parameter \'difficulty\'' do
       let(:params) do
         {
-          difficulty: 'easy'
+          difficulty: 'normal'
         }
       end
 
-      it 'return a score in easy difficulty' do
+      it 'return a score in normal difficulty' do
         is_expected.to eq 200
-        expect(json['data'].length).to eq 1
-        expect(json['data'][0]['id']).to eq score2.id.to_s
+        expect(json['data'].length).to eq 2
+        expect(
+          json['data'].map { |h| h['id'].to_i }
+        ).to eq [score3.id, score4.id]
       end
     end
 
     context 'dont pass parameter \'difficulty\'' do
       it 'return three scores in order' do
         is_expected.to eq 200
-        expect(json['data'].length).to eq 3
-        expect(json['data'][0]['id']).to eq score2.id.to_s
-        expect(json['data'][1]['id']).to eq score3.id.to_s
-        expect(json['data'][2]['id']).to eq score1.id.to_s
+        expect(json['data'].length).to eq 4
+        expect(
+          json['data'].map { |h| h['id'].to_i }
+        ).to eq [score2.id, score3.id, score4.id, score1.id]
       end
     end
   end

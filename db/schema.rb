@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "platform", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_scores_on_created_at"
     t.index ["music_id"], name: "index_scores_on_music_id"
     t.index ["user_id", "music_id", "difficulty", "platform"], name: "index_scores_on_user_id_and_music_id_and_difficulty_and_platform", unique: true
     t.index ["user_id"], name: "index_scores_on_user_id"
