@@ -9,12 +9,12 @@ module Api
 
     def index
       scores = if given_difficulty_params?
-                 get_platform_scores(parent: @user).where(difficulty: params[:difficulty]).order(:music_id)
+                 get_platform_scores(parent: @user).where(difficulty: params[:difficulty])
                else
                  get_platform_scores(parent: @user)
                end
 
-      scores = scores.includes([:music])
+      scores = scores.order(:music_id, :difficulty).includes([:music])
 
       render json: ScoreSerializer.new(scores, include: include_list)
     end
