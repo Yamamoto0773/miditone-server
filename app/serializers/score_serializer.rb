@@ -12,7 +12,9 @@ class ScoreSerializer < BaseSerializer
              :nice_count,
              :miss_count,
              :played_times,
-             :platform
+             :platform,
+             :created_at,
+             :updated_at
 
   belongs_to :user
   belongs_to :music

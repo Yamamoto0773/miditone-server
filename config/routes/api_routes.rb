@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :users, param: :qrcode do
       concerns :users_data, path_prefix: 'button/'
       concerns :users_data, path_prefix: 'board/'
+      resources :scores, only: :index
     end
 
     resources :musics do
