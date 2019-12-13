@@ -1,6 +1,8 @@
 create_table :users, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
-  t.string   :qrcode,   null: false
-  t.string   :name,     null: false
+  t.string  :qrcode,              null: false
+  t.string  :name,                null: false
+  t.integer :button_total_score,  null: false, default: 0
+  t.integer :board_total_score,   null: false, default: 0
 
   t.timestamps
 end

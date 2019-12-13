@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(version: 0) do
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin", force: :cascade do |t|
     t.string "qrcode", null: false
     t.string "name", null: false
+    t.integer "button_total_score", default: 0, null: false
+    t.integer "board_total_score", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["created_at"], name: "index_users_on_created_at"

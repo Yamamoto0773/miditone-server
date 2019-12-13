@@ -89,6 +89,12 @@ RSpec.describe 'Scores', type: :request do
         expect(
           json['data']['attributes'].slice(*params[:score].keys)
         ).to eq params[:score].stringify_keys
+        expect(
+          user.reload.board_total_score
+        ).to eq 800_000 + [score1, score2, score3].sum { |h| h[:points] }
+        expect(
+          user.reload.button_total_score
+        ).to eq button_score.points
       end
     end
 
@@ -118,6 +124,12 @@ RSpec.describe 'Scores', type: :request do
         expect(
           json['data']['attributes']['max_combo']
         ).to eq 50
+        expect(
+          user.reload.board_total_score
+        ).to eq 800_000 + [score2, score3].sum { |h| h[:points] }
+        expect(
+          user.reload.button_total_score
+        ).to eq button_score.points
       end
     end
 
@@ -143,6 +155,8 @@ RSpec.describe 'Scores', type: :request do
         }.not_to(change {
           score1.attributes.except(:max_combo)
         })
+        expect(user.reload.board_total_score).to eq([score1, score2, score3].sum { |h| h[:points] })
+        expect(user.reload.button_total_score).to eq button_score.points
         expect(json['data']['attributes']['played_times']).to eq 2
         expect(json['data']['attributes']['platform']).to eq 'board'
         expect(

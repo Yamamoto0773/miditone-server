@@ -6,6 +6,8 @@ class Score < ApplicationRecord
   belongs_to :user
   belongs_to :music
 
+  after_save :calc_total_score
+
   validates :user_id, :music_id, :difficulty, :points, :max_combo,
     :critical_count, :correct_count, :nice_count, :miss_count, :played_times, :platform,
     presence: true
@@ -18,4 +20,14 @@ class Score < ApplicationRecord
 
   enumerize :difficulty,
     in: { easy: '0', normal: '1', hard: '2' }
+
+  private
+
+  def calc_total_score
+    self.user.button_total_score = Score.where(user: self.user, platform: :button).pluck(:points).sum
+    self.user.board_total_score = Score.where(user: self.user, platform: :board).pluck(:points).sum
+    self.user.save!
+
+    true
+  end
 end
