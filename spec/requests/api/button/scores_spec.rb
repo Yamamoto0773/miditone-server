@@ -157,7 +157,7 @@ RSpec.describe 'Scores', type: :request do
           score1.attributes.except(:max_combo)
         })
         expect(user.reload.board_total_score).to eq board_score.points
-        expect(user.reload.button_total_score).to eq [score1, score2, score3].sum { |h| h[:points] }
+        expect(user.reload.button_total_score).to eq([score1, score2, score3].sum { |h| h[:points] })
         expect(json['data']['attributes']['played_times']).to eq 2
         expect(json['data']['attributes']['platform']).to eq 'button'
         expect(
